@@ -1,2 +1,5 @@
-# CART253
-Liu Shanqi`s course work for CART 253
+# CART253 - Creative Computatuon
+
+Liu Shanqi's course work for CART 253
+
+I'am excited about programming!
