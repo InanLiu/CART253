@@ -5,4 +5,4 @@ Liu Shanqi's course work for CART 253
 I'am excited about programming!
 
 
-[Check out my homepage](https://www.pinpinbarr.com/)
+[Check out my homepage](https://www.pippinbarr.com/)
