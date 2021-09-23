@@ -21,7 +21,7 @@ function preload() {
 Description of setup
 */
 function setup() {
-
+ createCanvan(500, 500);
 }
 
 
@@ -29,5 +29,7 @@ function setup() {
 Description of draw()
 */
 function draw() {
-
+ background(255, 0, 0);
+ rectMode(CENTER);
+ rect(250, 250, 100, 100 );
 }
