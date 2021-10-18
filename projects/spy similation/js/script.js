@@ -43,6 +43,28 @@ let begin= {
   colour:255,
   colourC:3.5,
 };
+let player = {
+  x:300,
+  y:450,
+  size:45,
+  ax:0,
+  ay:0,
+  vx:0,
+  vy:0,
+  firction:0.8 ,
+  maxSp:2,
+};
+ let agentRandom = {
+   x:300,
+   y:150,
+   size:60,
+   vx:0,
+   vy:0,
+   speed:2,
+   acceleration:0.5,
+ };
+
+ let barkSFX = undefined
 // setup()
 //
 // Description of setup() goes here.
@@ -245,10 +267,12 @@ function draw() {
     player.vy = constrain(player.vy, -player.maxSp, player.maxSp);
 
 
-
+    //apply speed
     player.x += player.vx;
     player.y += player.vy;
 
+
+    // Constrain position to the canvas
     player.x = constrain(player.x , 0, width);
     player.y = constrain(player.y , 0, height);
  }
@@ -271,9 +295,11 @@ function draw() {
    agentRandom.x += agentRandom.vx
    agentRandom.y += agentRandom.vy
 
+   stayInCanvas();
+
    ellipse(agentRandom.x,agentRandom.y,agentRandom.size);
  }
-   stayInCanvas();
+
 
  // function checkCollision(){  ?????????  pippin wrote in class (not sure)
  //   let d = dist (player.x,player.y,agentRandom.x,agentRandom.y);
@@ -283,7 +309,8 @@ function draw() {
  // }
 
  function stayInCanvas(){   //???????
-
+   agentRandom.x = constrain(agentRandom.x , 0, width);
+   agentRandom.y = constrain(agentRandom.y , 0, height);
  }
 
  function simulation2(){
