@@ -233,6 +233,8 @@ function draw() {
     handleInput();
     movePlayer();
     moveAgentRandom();
+    checkCollision();
+
 
  }
  function handleInput(){   // control of player
@@ -301,12 +303,12 @@ function draw() {
  }
 
 
- // function checkCollision(){  ?????????  pippin wrote in class (not sure)
- //   let d = dist (player.x,player.y,agentRandom.x,agentRandom.y);
- //   if (d < player.size/2 + agentRandom.size/2 ){
- //     barkSFX.play();
- //   }
- // }
+ function checkCollision(){ // ?????????  pippin wrote in class (not sure)
+   let d = dist (player.x,player.y,agentRandom.x,agentRandom.y);
+   if (d < player.size/2 + agentRandom.size/2 ){
+     barkSFX.play();
+   }
+ }
 
  function stayInCanvas(){   //???????
    agentRandom.x = constrain(agentRandom.x , 0, width);
