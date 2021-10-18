@@ -8,9 +8,9 @@ Here is a description of this template p5 project.
 **************************************************/
 
 
-let state =`beginningLine`
+let state =`simulation1`
 
-let beginningLines = {
+let beginningLines = { // beginningLines
   string1:"U are a spy",
   string2:"try to get secret documents and send it back",
   string3:"be cautious with          (agent) they got hounds",
@@ -46,6 +46,10 @@ let begin= {
 // setup()
 //
 // Description of setup() goes here.
+function preload(){
+  barkSFX = loadsound(`assets/sounds/bark.wav`)
+}
+
 function setup() {
    createCanvas(600,600);
 
@@ -53,7 +57,7 @@ function setup() {
 
    setTimeout(showBL3, 5000);
 
-   setTimeout(showstart,15000)
+   // setTimeout(showstart,15000)
 }
 
 function showBL2(){
@@ -87,165 +91,214 @@ function draw() {
      }
 }
 
-function start(){
-     background(0);
+// function start(){
+//      background(0);
+//
+//      push();
+//
+//     fill(192, 209, 196);
+//
+//      rect(60,210,480,80);
+//      rectMode(CENTER);
+//
+//
+//
+//      pop();
+//
+//      push();
+//      textAlign(CENTER,CENTER);
+//      textSize(64);
+//      textStyle(BOLD);
+//
+//      fill(156, 5, 32);
+//
+//      text(title.string,title.x,title.y);
+//
+//      pop();
+//
+//      push();
+//
+//       begin.colour-=begin.colourC;
+//       if(begin.size>35){
+//        begin.colourC=-begin.colourC;
+//       }
+//       else if(begin.size<32){
+//       begin.colourC=-begin.colourC;
+//       }
+//
+//      begin.size=begin.size+begin.sizeC;
+//
+//      if(begin.size>35){
+//        begin.sizeC=-begin.sizeC;
+//      }
+//      else if(begin.size<32){
+//        begin.sizeC=-begin.sizeC;
+//      }
+//      textAlign(CENTER,CENTER);
+//      textSize(begin.size);
+//
+//      fill(begin.colour);
+//
+//      text(begin.string,begin.x,begin.y);
+//      pop();
+//      }
+//  function beginningLine(){
+//      background(0);
+//      push();
+//
+//      textAlign(CENTER,CENTER);
+//      textSize(64);
+//      textStyle(BOLD);
+//
+//      beginningLines.colour1+=beginningLines.colourC1
+//      if(beginningLines.colour1===255){
+//        beginningLines.colourC1=-beginningLines.colourC1;
+//      }
+//      fill(beginningLines.colour1);
+//
+//      text(beginningLines.string1,beginningLines.x,beginningLines.y);
+//      pop();
+//
+//      if (beginningLine2Visible){
+//        push();
+//
+//        textAlign(CENTER,CENTER);
+//        textSize(32);
+//        textStyle(BOLD);
+//
+//
+//        beginningLines.colour2+=beginningLines.colourC2;
+//
+//         if(beginningLines.colour2===255){
+//          beginningLines.colourC2=-beginningLines.colourC2;
+//        }
+//
+//        fill(beginningLines.colour2);
+//        rectMode(CENTER);
+//        text(beginningLines.string2,beginningLines.x,beginningLines.y2,500,250);
+//        pop();
+//
+//
+//      }
+//
+//      if (beginningline3Visible){
+//        push();
+//
+//       textAlign(CENTER,CENTER);
+//       textSize(32);
+//       textStyle(BOLD);
+//
+//
+//       beginningLines.colour3+=beginningLines.colourC3;
+//
+//        if(beginningLines.colour3===255){
+//         beginningLines.colourC3=-beginningLines.colourC3;
+//       }
+//
+//       fill(beginningLines.colour3);
+//       rectMode(CENTER);
+//       text(beginningLines.string3,beginningLines.x,beginningLines.y3,500,250);
+//       pop();
+//      }
+//
+//
+//  }
+ function simulation1(){  //stage: simulation
+    background(50);
 
-     push();
 
-    fill(192, 209, 196);
-
-     rect(60,210,480,80);
-     rectMode(CENTER);
-
-
-
-     pop();
-
-     push();
-     textAlign(CENTER,CENTER);
-     textSize(64);
-     textStyle(BOLD);
-
-     fill(156, 5, 32);
-
-     text(title.string,title.x,title.y);
-
-     pop();
-
-     push()
-
-      begin.colour-=begin.colourC;
-      if(begin.size>35){
-       begin.colourC=-begin.colourC;
-      }
-      else if(begin.size<32){
-      begin.colourC=-begin.colourC;
-      }
-
-     begin.size=begin.size+begin.sizeC;
-
-     if(begin.size>35){
-       begin.sizeC=-begin.sizeC;
-     }
-     else if(begin.size<32){
-       begin.sizeC=-begin.sizeC;
-     }
-     textAlign(CENTER,CENTER);
-     textSize(begin.size);
-
-     fill(begin.colour);
-
-     text(begin.string,begin.x,begin.y);
-     pop();
-     }
- function beginningLine(){
-     background(0)
-     push()
-
-     textAlign(CENTER,CENTER);
-     textSize(64);
-     textStyle(BOLD);
-
-     beginningLines.colour1+=beginningLines.colourC1
-     if(beginningLines.colour1===255){
-       beginningLines.colourC1=-beginningLines.colourC1
-     }
-     fill(beginningLines.colour1)
-
-     text(beginningLines.string1,beginningLines.x,beginningLines.y)
-     pop()
-
-     if (beginningLine2Visible){
-       push()
-
-       textAlign(CENTER,CENTER);
-       textSize(32);
-       textStyle(BOLD);
-
-
-       beginningLines.colour2+=beginningLines.colourC2
-
-        if(beginningLines.colour2===255){
-         beginningLines.colourC2=-beginningLines.colourC2
-       }
-
-       fill(beginningLines.colour2)
-       rectMode(CENTER)
-       text(beginningLines.string2,beginningLines.x,beginningLines.y2,500,250)
-       pop()
-
-
-     }
-     // push()
-     //
-     // textAlign(CENTER,CENTER);
-     // textSize(32);
-     // textStyle(BOLD);
-     //
-     //
-     // beginningLines.colour2+=beginningLines.colourC2
-     //
-     //  if(beginningLines.colour2===255){
-     //   beginningLines.colourC2=-beginningLines.colourC2
-     // }
-     //
-     // fill(beginningLines.colour2)
-     // rectMode(CENTER)
-     // text(beginningLines.string2,beginningLines.x,beginningLines.y2,500,250)
-     // pop()
-     //
-     if (beginningline3Visible){
-       push()
-
-      textAlign(CENTER,CENTER);
-      textSize(32);
-      textStyle(BOLD);
-
-
-      beginningLines.colour3+=beginningLines.colourC3
-
-       if(beginningLines.colour3===255){
-        beginningLines.colourC3=-beginningLines.colourC3
-      }
-
-      fill(beginningLines.colour3)
-      rectMode(CENTER)
-      text(beginningLines.string3,beginningLines.x,beginningLines.y3,500,250)
-      pop()
-     }
-     //  push()
-     //
-     // textAlign(CENTER,CENTER);
-     // textSize(32);
-     // textStyle(BOLD);
-     //
-     //
-     // beginningLines.colour3+=beginningLines.colourC3
-     //
-     //  if(beginningLines.colour3===255){
-     //   beginningLines.colourC3=-beginningLines.colourC3
-     // }
-     //
-     // fill(beginningLines.colour3)
-     // rectMode(CENTER)
-     // text(beginningLines.string3,beginningLines.x,beginningLines.y3,500,250)
-     // pop()
-
+    displayShape();
+    handleInput();
+    movePlayer();
+    moveAgentRandom();
 
  }
- function simulation1(){
-    background(0);
+ function handleInput(){   // control of player
+    if (keyIsDown(RIGHT_ARROW)){
+      player.ax = 0.5;
+    }
+    else if (keyIsDown(LEFT_ARROW))  {
+      player.ax = -0.5;
+    }
+    else if (keyIsDown(UP_ARROW)) {
+      player.ay = -0.5;
+    }
+    else if (keyIsDown(DOWN_ARROW)) {
+      player.ay = 0.5;
+    }
+    else {
+        player.ax = 0;
  }
+
+ }
+ function movePlayer(){     //moving like a character (speed up and slow down)
+
+    player.vx += player.ax;
+    player.vy += player.ay;
+
+    //apply firction   idk what happened
+    // player.vx *= player.firction
+    // player.vy *= player.firction
+
+    //contrain speed
+    player.vx = constrain(player.vx, -player.maxSp, player.maxSp);
+    player.vy = constrain(player.vy, -player.maxSp, player.maxSp);
+
+
+
+    player.x += player.vx;
+    player.y += player.vy;
+
+    player.x = constrain(player.x , 0, width);
+    player.y = constrain(player.y , 0, height);
+ }
+
+ function displayShape(){ //player
+   push();
+   noStroke();
+   fill(255);
+   ellipse(player.x,player.y,player.size)
+   pop();
+ }
+
+ function moveAgentRandom() {
+
+   let change = random();
+   if (change < 0.05){
+     agentRandom.vx = random(-agentRandom.speed,agentRandom.speed);
+     agentRandom.vy = random(-agentRandom.speed,agentRandom.speed);
+   }
+   agentRandom.x += agentRandom.vx
+   agentRandom.y += agentRandom.vy
+
+   ellipse(agentRandom.x,agentRandom.y,agentRandom.size);
+ }
+   stayInCanvas();
+
+ // function checkCollision(){  ?????????  pippin wrote in class (not sure)
+ //   let d = dist (player.x,player.y,agentRandom.x,agentRandom.y);
+ //   if (d < player.size/2 + agentRandom.size/2 ){
+ //     barkSFX.play();
+ //   }
+ // }
+
+ function stayInCanvas(){   //???????
+
+ }
+
  function simulation2(){
 
  }
+
  function end1(){
 
  }
+
  function end2(){
 
  }
- function mousePressed(){
+
+ function mousePressed(){ //changging state
   if (state === `start`)
-  state = `simulation1`
+  state = `simulation1`;
  }
