@@ -1,8 +1,8 @@
 "use strict";
 
 /**************************************************
-Template p5 project
-Pippin Barr
+project 1 spy simulation
+Liu Shanqi
 
 Here is a description of this template p5 project.
 **************************************************/
@@ -14,10 +14,12 @@ let beginningLines = { // beginningLines
   string1:"U are a spy",
   string2:"try to get secret documents and send it back",
   string3:"be cautious with          (agent) they got hounds",
+  // postion of lines
   x:300,
   y:250,
   y2:350,
   y3:500,
+  // fade effects
   colour1:1,
   colour2:1,
   colour3:0,
@@ -26,23 +28,24 @@ let beginningLines = { // beginningLines
   colourC3:1,
 };
 
-let beginningLine2Visible = false;
 
-let beginningline3Visible = false
 let title = {
   string:`Paper please`,
   x:300,
   y:250,
 };
+
 let begin= {
   string:`press to begin`,
   x:300,
   y:450,
+  // shining effect
   sizeC:0.035,
   size:32,
   colour:255,
   colourC:3.5,
 };
+
 let player = {
   x:300,
   y:450,
@@ -54,30 +57,66 @@ let player = {
   firction:0.8 ,
   maxSp:2,
 };
- let agentRandom = {
-   x:300,
+
+ let patrol = {
+   x:20,
    y:150,
-   size:60,
-   vx:0,
-   vy:0,
-   speed:2,
-   acceleration:0.5,
+   size:30,
+   speed:3,
  };
 
- let barkSFX = undefined
+ let agentRandom = {
+   x:500,
+   x1:100,
+   y:300,
+   y1:300,
+   size:50,
+   iSize:60,
+   vx:0,
+   vy:0,
+   vx1:0,
+   vy1:0,
+   speed:1,
+   speed1:2,
+   contrainXL:30,
+   contrainXR:570,
+   contrainYU:303,
+   contrainYD:570,
+ };
+ let documents = {
+   x:300,
+   y:80,
+   size:40,
+ }
+
+
+ let beginningLine2Visible = false;
+
+ let beginningline3Visible = false;
+
+ let barkSFX = undefined;
+
+ let agentS = undefined;
+
+ let agentB = undefined;
+
+ let doc = undefined;
 // setup()
 //
 // Description of setup() goes here.
 function preload(){
-  barkSFX = loadsound(`assets/sounds/bark.wav`)
+  barkSFX = loadSound(`assets/sounds/bark.wav`)   // sound effect of get caught
+  agentS = loadImage(`assets/images/clown60.png`)
+  agentB = loadImage(`assets/images/clown60.png`)
+  doc = loadImage(`assets/images/doc.png`)
 }
 
 function setup() {
    createCanvas(600,600);
 
-   setTimeout(showBL2, 2000);
+   setTimeout(showBL2, 2000); // show the beginningLine1
 
-   setTimeout(showBL3, 5000);
+   setTimeout(showBL3, 5000); // show the beginningLine2
 
    // setTimeout(showstart,15000)
 }
@@ -96,7 +135,7 @@ function showstart(){
 // draw()
 //
 // Description of draw() goes here.
-function draw() {
+function draw() {    //states:
      if (state === `beginningLine`){
        beginningLine()
      }
@@ -232,8 +271,11 @@ function draw() {
     displayShape();
     handleInput();
     movePlayer();
-    moveAgentRandom();
-    checkCollision();
+    moveAgentRandom1();
+    moveAgentRandom2();
+    patrolAgent();
+    displayDocuments();
+    checkCollisionOfAgent();
 
 
  }
@@ -251,18 +293,20 @@ function draw() {
       player.ay = 0.5;
     }
     else {
+        player.ay = 0;
         player.ax = 0;
  }
 
  }
  function movePlayer(){     //moving like a character (speed up and slow down)
 
+    //apply acceleration
     player.vx += player.ax;
     player.vy += player.ay;
 
     //apply firction   idk what happened
-    // player.vx *= player.firction
-    // player.vy *= player.firction
+    player.vy *= player.firction
+    player.vx *= player.firction
 
     //contrain speed
     player.vx = constrain(player.vx, -player.maxSp, player.maxSp);
@@ -286,11 +330,14 @@ function draw() {
    ellipse(player.x,player.y,player.size)
    pop();
  }
+ function displayDocuments(){
+   ellipse(documents.x,documents.y,documents.size)
+ }
+ function moveAgentRandom1() {
 
- function moveAgentRandom() {
-
+   push();
    let change = random();
-   if (change < 0.05){
+   if (change < 0.02){
      agentRandom.vx = random(-agentRandom.speed,agentRandom.speed);
      agentRandom.vy = random(-agentRandom.speed,agentRandom.speed);
    }
@@ -299,22 +346,118 @@ function draw() {
 
    stayInCanvas();
 
+   noStroke();
+   noFill();
    ellipse(agentRandom.x,agentRandom.y,agentRandom.size);
+   imageMode(CENTER);
+   image(agentB,agentRandom.x,agentRandom.y,agentRandom.iSize,agentRandom.iSize);
+
+   pop();
  }
 
+ function moveAgentRandom2() {
 
- function checkCollision(){ // ?????????  pippin wrote in class (not sure)
+   push();
+   let change = random();
+   if (change < 0.01){
+     agentRandom.vx1 = random(-agentRandom.speed1,agentRandom.speed1);
+     agentRandom.vy1 = random(-agentRandom.speed1,agentRandom.speed1);
+   }
+
+   agentRandom.x1 += agentRandom.vx1;
+   agentRandom.y1 += agentRandom.vy1;
+
+   stayInCanvas();
+   noStroke();
+   noFill();
+   ellipse(agentRandom.x1,agentRandom.y1,agentRandom.size);
+
+
+    imageMode(CENTER);
+    image(agentB,agentRandom.x1,agentRandom.y1,agentRandom.iSize,agentRandom.iSize);
+   pop();
+ }
+
+ function patrolAgent(){
+
+   push();
+   patrol.x += patrol.speed
+   if (patrol.x > width ){
+     patrol.speed = -patrol.speed
+   }
+   else if (patrol.x < 0) {
+     patrol.speed = -patrol.speed
+   }
+   noStroke();
+   noFill();
+   ellipse(patrol.x,patrol.y,patrol.size);
+   pop();
+
+   imageMode(CENTER);
+   image(agentS,patrol.x,patrol.y,patrol.size,patrol.size);
+   pop();
+
+
+ }
+
+ function checkCollisionOfAgent(){ // ?????????  pippin wrote in class (not sure)
    let d = dist (player.x,player.y,agentRandom.x,agentRandom.y);
    if (d < player.size/2 + agentRandom.size/2 ){
      barkSFX.play();
+     // Undo the last move by subtracting velocity
+    player.x -= player.vx;
+    player.y -= player.vy;
+    // Zero the velocity and acceleration
+   freeze();
+
+   }
+   let d1 = dist (player.x,player.y,agentRandom.x1,agentRandom.y1);
+   if (d1 < player.size/2 + agentRandom.size/2 ){
+     barkSFX.play();
+     // Undo the last move by subtracting velocity
+    player.x -= player.vx;
+    player.y -= player.vy;
+    // Zero the velocity and acceleration
+   freeze();
+
+   }
+
+   let d2 = dist (player.x,player.y,patrol.x,patrol.y);
+   if (d2 < player.size/2 + patrol.size/2 ){
+     barkSFX.play();
+     // Undo the last move by subtracting velocity
+    player.x -= player.vx;
+    player.y -= player.vy;
+    // Zero the velocity and acceleration
+   freeze();
+
    }
  }
 
- function stayInCanvas(){   //???????
-   agentRandom.x = constrain(agentRandom.x , 0, width);
-   agentRandom.y = constrain(agentRandom.y , 0, height);
+ function stayInCanvas(){   //contrain of random agent
+   agentRandom.x = constrain(agentRandom.x , agentRandom.contrainXL, agentRandom.contrainXR);
+   agentRandom.y = constrain(agentRandom.y , agentRandom.contrainYU, agentRandom.contrainYD);
+
+   agentRandom.x1 = constrain(agentRandom.x1 , agentRandom.contrainXL, agentRandom.contrainXR);
+   agentRandom.y1 = constrain(agentRandom.y1 , agentRandom.contrainYU, agentRandom.contrainYD);
  }
 
+ function freeze(){
+   player.vx = 0;
+   player.vy = 0;
+   player.ax = 0;
+   player.ay = 0;
+   change = 0 ;
+ }
+
+ function displayScore() {
+   push();
+   fill(255);
+   textAlign(LEFT, TOP);
+   textSize(32);
+   text(score, width / 8, height / 8);
+   pop();
+}
  function simulation2(){
 
  }
