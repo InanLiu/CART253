@@ -4,9 +4,14 @@
 project 1 spy simulation
 Liu Shanqi
 
-Here is a description of this template p5 project.
-**************************************************/
 
+**************************************************/
+//# spy simulation
+
+
+// matagame 
+//
+// use dialogs to let player image a coldwar world and depress spy
 
 let state =`beginningLine`
 
@@ -188,6 +193,8 @@ let dialogBox = {  //codes from example
 
  let theEnd = undefined;
 
+ let mainC = undefined;
+
  let score = 0; //data to calculate the time player near the enemies
 
  let score1 = 0; // amount of documents
@@ -202,7 +209,7 @@ function preload(){
   bgImage = loadImage(`assets/images/background.png`); // pixel art by myself
   mainGif = loadImage(`assets/images/maingif.gif`);//gif fanart by Sorapoi
   deadGif = loadImage(`assets/images/dead.gif`); // gif from game paper please
-
+  mainC = loadImage(`assets/images/player.png`); // pixel art by myself
   theEnd = loadImage(`assets/images/the end.jpg`);// pixel art by Nikita Solo
   //Adventure_game_mockup_by_angrysnail___nikita-solo-scaryatticend3-export
 }
@@ -479,8 +486,9 @@ function line2(){
  function displayPlayer(){ //display the object that play can control
    push();
    noStroke();
-   fill(255);
+   noFill();
    ellipse(player.x,player.y,player.size)
+   image(mainC,player.x,player.y,player.size,player.size)
    pop();
  }
 
