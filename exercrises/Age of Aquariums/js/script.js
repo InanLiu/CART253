@@ -12,7 +12,11 @@ let schoolSize = 1
 let user = {
   x: 0,
   y: 0,
-  size: 100
+  size: 60,
+  growth:5,
+  vx:0,
+  vy:0,
+  speed:2,
 };
 //fishs
 
@@ -20,24 +24,24 @@ let user = {
 //
 // Description of setup() goes here.
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(1400, 600);
 
 
   for (let i = 0; i < schoolSize; i++){
-   school[i] = createFish(random(0, width), random(0,height));
+   school[i] = createFish(random(0, width), random(0,height),random(20,100));
   }
 
 }
 
-function createFish(x,y){
+function createFish(x,y,size){
   let fish = {
     x: x,
     y: y,
-    size: 50,
+    size: size,
     vx:0,
     vy:0,
     alive: false,
-    speed:2
+    speed:2,
   };
   return fish;
 }
@@ -63,8 +67,33 @@ function draw() {
 
 // sets the user position to the mouse position
 function moveUser(){
-  user.x = mouseX;
-  user.y = mouseY;
+  // user.x = mouseX;
+  // user.y = mouseY;
+
+  let dx = user.x - mouseX; //define the position of user object
+  let dy = user.y - mouseY;
+
+  // user object move toward to the mouse position
+  if (dx < 0){
+    user.vx = user.speed;
+  }
+  else if (dx > 0){
+    user.vx = -user.speed;
+  }
+
+  if (dy < 0){
+    user.vy = user.speed;
+  }
+  else if (dy > 0){
+    user.vy = -user.speed;
+  }
+
+  //apply speed
+  user.x += user.vx;
+  user.y += user.vy;
+
+
+
 }
 
 function moveFish(fish){
@@ -85,8 +114,9 @@ function moveFish(fish){
 function checkFish(fish){
   if(!fish.eaten){
     let d = dist (user.x,user.y,fish.x,fish.y)
-    if (d < user.size / 2 + fish.size / 2){
+    if (d < user.size / 2 + fish.size / 2 && user.size > fish.size){ //user object eaten smaller fish
       fish.eaten = true;
+      user.size += user.growth
     }
   }
 }
@@ -125,11 +155,11 @@ function checkFish(fish){
        pop();
      }
 
-   function mousePreseed(){
-     let fish = createFish(mouseX,mouseY)
-     school.push(fish);
-   }
-  // // fraw fish1 as a circle
+  function mousePressed(){
+    let fish = createFish()
+    school.push(fish)
+  }
+  // // draw fish1 as a circle
   // function displayFish1(){
   //   if (!fish1.eaten){
   //     push();
