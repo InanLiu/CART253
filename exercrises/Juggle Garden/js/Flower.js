@@ -7,11 +7,12 @@
      this.x =  x;
      this.y =  y;
      this.size =  size;
-     this.maxSize = size;
+     this.maxSize = 80;
      this.stemLength = stemLength;
      this.stemThickness = 10;
      this.petalThickness = 10;
-     this.maxPetalthickness = 10;
+     this.maxPetalThickness = 10;
+     this.maxStemLength = 120;
      //colour
      this.stemColor = {
        r : 50,
@@ -25,25 +26,35 @@
        b : 0
      };
      this.alive = true;
+     this.mature = false;
    }
 
-    shrink() {
-      let shrinkage = random(0, 0.1);
-      this.size -= shrinkage;
-      this.petalThickness = this.petalThickness - shrinkage/10;
+    grow() {
+      let growth = random(0, 0.05);
+      this.size += growth;
+      this.petalThickness = this.petalThickness + growth/20;
+      this.stemLength += growth * 1.3;
 
-      if(this.size <= 0 || this.petalThickness <= 0){
+      if(this.size <= 40 || this.petalThickness <= 2){
         this.alive = false;
       }
+      if(this.size = this.maxSize){
+        this.mature = true
+
+      }
+      this.size = constrain(this.size,0,this.maxSize);
+      this.petalThickness = constrain(this.petalThickness,0,this.maxPetalThickness)
+      this.stemLength = constrain(this.stemLength,0,this.maxStemLength)
+
     }
 
-    pollinate(){
-      let growth = random(0,0.5)
-      this.size = this.size + growth
-      this.petalThickness =   this.petalThickness + growth / 10;
+    mothEaten(){
+      let eaten = random(0,0.5)
+      this.size = this.size - eaten
+      this.petalThickness =   this.petalThickness - eaten/20 ;
 
-      this.size = constrain(this.size,0,this.maxSize);
-      this.petalThickness = constrain(this.petalThickness,0,this.maxPetalthickness)
+      // this.size = constrain(this.size,0,this.maxSize);
+      // this.petalThickness = constrain(this.petalThickness,0,this.maxPetalThickness)
 
     }
     display(){

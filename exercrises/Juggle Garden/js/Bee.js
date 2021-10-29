@@ -6,12 +6,12 @@ class Bee{
     this.y = y;
     this.size = 40;
     this.minSize = 10; //death limitation
-    this.maxSize = 40;
+    this.maxSize = 50;
     this.vx = 0;
     this.vy = 0;
-    this.speed = 5;
+    this.speed = 3;
     this.growRate = 0.05;
-    this.shrinkRate = 0.05; //getting smaller
+    this.shrinkRate = 0; //getting smaller
     this.jitteriness = 0.1; //direction
     this.alive = true; // bee start out alive
   }
@@ -23,11 +23,11 @@ class Bee{
       this.alive = false;
     }
   }
-  tryToPollinate(flower){
+  tryToMothEaten(flower){
     let d = dist(this.x,this.y,flower.x,flower.y)
     if (d < this.size/2 + flower.size/2 + flower.petalThickness){
       this.grow();
-      flower.pollinate();
+      flower.mothEaten();
     }
   }
   grow(){
@@ -36,7 +36,7 @@ class Bee{
   }
   move(){
 
-    let r = random(0, 1);
+    let r = random(0, 3);
     if (r < this.jitteriness){
       this.vx= random(-this.speed, this.speed);
       this.vy= random(-this.speed, this.speed);
@@ -58,7 +58,7 @@ class Bee{
      pop();
 
      push();
-     fill(255, 255, 50);
+     fill(21, 21, 50);
      noStroke();
      ellipse(this.x, this.y, this.size);
      pop();
