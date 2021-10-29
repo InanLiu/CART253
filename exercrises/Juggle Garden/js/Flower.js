@@ -8,15 +8,11 @@
      this.y =  y;
      this.size =  size;
      this.maxSize = 80;
-     this.stemLength = stemLength;
+     this.stemLength = stemLength; //all pop which made flower
      this.stemThickness = 10;
      this.petalThickness = 10;
      this.maxPetalThickness = 10;
      this.maxStemLength = 120;
-     this.score = {
-       death:0,
-       mature:0,
-     }
      //colour
      this.stemColor = {
        r : 50,
@@ -29,41 +25,38 @@
        g : 0,
        b : 0
      };
-     this.alive = true;
-     this.mature = false;
+     this.alive = true; //decide where flower is smaller than 40 or not
+     this.mature = false; //decide where flower is bugger than 80 or not
    }
 
-    grow() {
+    grow() {//flower will automatically growing up
       let growth = random(0, 0.05);
       this.size += growth;
       this.petalThickness = this.petalThickness + growth/20;
       this.stemLength += growth * 1.3;
 
-      if(this.size <= 40 || this.petalThickness <= 2){
+      if(this.size <= 40 || this.petalThickness <= 2){//decide where flower is smaller than 40 or not
         this.alive = false;
         death.play();
         scoreD ++;
       }
-      if(this.size >= this.maxSize){
+      if(this.size >= this.maxSize){ //decide where flower is bugger than 80 or not
         this.mature = true;
         scoreM ++;
         grow.play();
       }
+      //apply constrain
       this.size = constrain(this.size,0,this.maxSize);
       this.petalThickness = constrain(this.petalThickness,0,this.maxPetalThickness)
       this.stemLength = constrain(this.stemLength,0,this.maxStemLength)
 
     }
-    // beMature(){
-    //   if (this.mautre)
-    //
-    // }
-    beMature(){
-      if (this.mature){
-        image(grow,this.x, this.y, this.size)
-      }
-    }
-    mothEaten(){
+    // beMature(){  // wanna a pitcture replace mature flower (not sure how to do it)
+        //   if (this.mature){
+        //     image(grow,this.x, this.y, this.size)
+        //   }
+        // }
+    mothEaten(){ //fower get smaller when touched by locust
       let eaten = random(0,0.5)
       this.size = this.size - eaten
       this.petalThickness =   this.petalThickness - eaten/20 ;
@@ -71,7 +64,7 @@
 
 
     }
-    display(){
+    display(){ //display flower
       push();
       //draw stem
       strokeWeight(this.stemThickness);

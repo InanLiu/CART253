@@ -6,6 +6,9 @@ Liu Shanqi
 
 Here is a description of this template p5 project.
 
+player control a farmer(use mouse)
+ to dispel locust (when farmer get closer locust will run away)
+ and protect flowers to grow up(flower will growup automatically)
 **************************************************/
 let state = `start`
 let garden = {
@@ -33,12 +36,12 @@ let user = {   //uesr object
   vy:0,
   speed:2, //moving speed
 };
-let openningStrings = [
+let openningStrings = [ //opning lines  idea from UT , make some surprise of the tone
 `It's a beautiful day outside.`,
 `birds are singing, flowers are blooming...`,
 `on days like these, kids like you...`,
 `S h o u l d `,
-`help flower to grow`
+`help flowers to grow`
 ];
 let currentOpenningString = 0;
 
@@ -90,7 +93,7 @@ grow = loadSound(`assets/sounds/grow.wav`);
 function setup() {
   createCanvas(1400,600);
 
-  textAlign(CENTER,CENTER);
+  textAlign(CENTER,CENTER); //text style
   textSize(32);
   fill(0);
 
@@ -125,20 +128,21 @@ function setup() {
 // Description of draw() goes here.
 function draw() {
 
-  if (state === `start`){
+  if (state === `start`){//start lines
      start();
     }
     else if (state === `simulation`){ //state: simulation (where the playing going on)
       simulation();
     }
-    else if (state === `goodEnd`){//goodEnd when the userobject get big enough
+    else if (state === `goodEnd`){//goodEnd when the 10 flowers get mature
       goodEnd();
     }
-    else if (state === `badEnd`){//badEnd when userobject is eaten by bigger fish
+    else if (state === `badEnd`){//badEnd when the death limit of flwer is reached
       badEnd();
     }
 
 }
+//start lines
 function start(){
   // The black void
   background(0);
@@ -146,41 +150,43 @@ function start(){
   // Display the dialog box
   displayDialog();
 }
+//stage of whole simulation going on
 function simulation(){
-
+  // background of grass colour
   background(garden.grassColor.r, garden.grassColor.g, garden.grassColor.b)
 
 
-  displayFarmer();
-  moveFarmer();
-  stateChecker();
+  displayFarmer(); // display player control object
+  moveFarmer();//the way player control object move (use backup plan) (can be improve after asking pippin or mads XD)
+  stateChecker();//check which state it should go
+  // flower stuff during the simulation
   for (let i = 0; i < garden.flowers.length; i++){
     let flower = garden.flowers[i];
     if (flower.alive && ! flower.mature){
-    flower.display();
-    flower.grow();
+    flower.display(); //display flower
+    flower.grow();// flowers will automatically grow
     // flower.beMature();
   }
 }
+//locust stuff in the simulation
   for (let i = 0; i < garden.locusts.length; i++){
     let locust = garden.locusts[i]
     if (locust.alive){
-      locust.shrink();
-      locust.move();
-      locust.display();
-      locust.checkDispelLocust()
+      locust.move(); // random movement of locust
+      locust.display(); // display locust
+      locust.checkDispelLocust() // if the locust get dispell by farmer
       // locust.checkDispelLocust();
 
-
+      //make locust can makes flower smaller
       for (let j = 0; j < garden.flowers.length; j++){
         let flower = garden.flowers[j];
         if(flower.alive){
-        locust.tryToMothEaten(flower);
+        locust.tryToMothEaten(flower); //check if locust touch flower
        }
      }
     }
   }
-  displayScore()
+  displayScore() //the score represet the number of mature flowers
 }
 
 //state of goodending
@@ -269,7 +275,7 @@ function displayScore() { //code from example
  text(scoreM, width / 8, height / 8);
  pop();
 }
- function moveFarmer(){
+ function moveFarmer(){ // use mouseX and Y to control the farmer( again can be improve)
    user.x = mouseX;
    user.y = mouseY;
    /*
@@ -297,14 +303,14 @@ function displayScore() { //code from example
    // user.y += user.vy;
  }
 
- function displayFarmer(){
+ function displayFarmer(){ // display the player control object
    push();
    fill(210,0,0);
    ellipse(user.x,user.y,user.size);
    noStroke();
    pop();
  }
- function stateChecker(){
+ function stateChecker(){ // check the state
    if (scoreD === deathLimit ){
      state = `badEnd`
    }

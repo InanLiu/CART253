@@ -15,43 +15,36 @@ class Locust{
     this.jitteriness = 0.1; //direction
     this.alive = true; // bee start out alive
     this.distanceBetween = 120;
-    this.farmerIsNear = false;
+    this.farmerIsNear = false; // check is the farmer is near to dispel or not
   }
 
-  shrink(){
-    this.size -= this.shrinkRate;
-
-    if (this.size < this.minSize){
-      this.alive = false;
-    }
-  }
   tryToMothEaten(flower){
     let d = dist(this.x,this.y,flower.x,flower.y)
     if (d < this.size/2 + flower.size/2 + flower.petalThickness){
       this.grow();
       flower.mothEaten();
-      // eat.play()
+      // eat.play()  (get question of how to make it only trigger one)
     }
   }
-  grow(){
+  grow(){ // locust will get bigger when it eat some flower
     this.size = this.size + this.growRate;
     this.size = constrain(this.size, this.minSize, this.maxSize)
   }
-  move(){
+  move(){ // lotcust will move randomly before farmer get cloer
   if (!this.farmerIsNear){
     let r = random(0, 2);
     if (r < this.jitteriness){
-      this.vx= random(-this.speed, this.speed);
+      this.vx= random(-this.speed, this.speed); //speed constrain
       this.vy= random(-this.speed, this.speed);
     }
-    this.x += this.vx;
+    this.x += this.vx; //apply velociety
     this.y += this.vy;
 }
-    this.x = constrain(this.x,0 ,width);
+    this.x = constrain(this.x,0 ,width);  //apply constrain
     this.y = constrain(this.y,0 ,height);
   }
 
-  checkDispelLocust(){
+  checkDispelLocust(){  //check the farmer is near locust or not
     let d = dist(this.x, this.y, mouseX, mouseY)
     if ( d < this.distanceBetween){
     this.farmerIsNear = true;
@@ -63,7 +56,7 @@ class Locust{
 
 }
 
- dispelLocust(){
+ dispelLocust(){  // locust will try to avoid farmer
    let dx = this.x - mouseX
    let dy = this.y - mouseY
 
@@ -82,7 +75,7 @@ class Locust{
    this.y += this.vy;
 
  }
-   display(){
+   display(){  //display of the locust
      push();
 
      fill(222,222,225);
@@ -104,10 +97,4 @@ class Locust{
      ellipse(this.x + this.size / 10, this.y , this.size/10);
      pop();
    }
-
-
-
-
-
-
 }
