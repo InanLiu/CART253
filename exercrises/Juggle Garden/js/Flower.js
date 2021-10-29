@@ -13,6 +13,10 @@
      this.petalThickness = 10;
      this.maxPetalThickness = 10;
      this.maxStemLength = 120;
+     this.score = {
+       death:0,
+       mature:0,
+     }
      //colour
      this.stemColor = {
        r : 50,
@@ -37,24 +41,34 @@
 
       if(this.size <= 40 || this.petalThickness <= 2){
         this.alive = false;
+        death.play();
+        scoreD ++;
       }
-      if(this.size = this.maxSize){
-        this.mature = true
-
+      if(this.size >= this.maxSize){
+        this.mature = true;
+        scoreM ++;
+        grow.play();
       }
       this.size = constrain(this.size,0,this.maxSize);
       this.petalThickness = constrain(this.petalThickness,0,this.maxPetalThickness)
       this.stemLength = constrain(this.stemLength,0,this.maxStemLength)
 
     }
-
+    // beMature(){
+    //   if (this.mautre)
+    //
+    // }
+    beMature(){
+      if (this.mature){
+        image(grow,this.x, this.y, this.size)
+      }
+    }
     mothEaten(){
       let eaten = random(0,0.5)
       this.size = this.size - eaten
       this.petalThickness =   this.petalThickness - eaten/20 ;
 
-      // this.size = constrain(this.size,0,this.maxSize);
-      // this.petalThickness = constrain(this.petalThickness,0,this.maxPetalThickness)
+
 
     }
     display(){

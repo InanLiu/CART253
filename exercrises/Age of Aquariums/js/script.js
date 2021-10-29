@@ -33,8 +33,7 @@ function preload(){
 
   bgMusic = loadSound(`assets/sounds/bgMusic.wav`);//bgmusic
   //sound effect
-  putFish = loadSound(`assets/sounds/putFish.wav`);
-  eat = loadSound(`assets/sounds/eat.wav`);
+  grow = loadSound(`assets/sounds/eat.wav`);
   death = loadSound(`assets/sounds/death.wav`);
 }
 // setup()
