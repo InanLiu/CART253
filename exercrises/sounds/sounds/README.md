@@ -1,3 +1,8 @@
 # Template p5 project
 
-This is the README file for the entire project. For more official projects you should write information here about the nature of the project, your name, any special explanations of how the project works, etc.
+exercise: Make some noise
+
+point:
+1. I wanna my user can interact with user object(movement or state) with their mic  (idealy)
+2. warning at dangerous place/situation with Oscillator (may be uesd in project 2)
+3. make sounds effect or bgm with oscillator and PolySynth  (classic self made effct in final project)
