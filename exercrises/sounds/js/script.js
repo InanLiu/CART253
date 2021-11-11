@@ -12,11 +12,13 @@ let state = `simulation`
 
 let upBlocks = [];
 
-let numBlocks = 10;
+let numBlocks = 5;
 
 let addUpBlockInterval = 20;
 
 let oscillator;
+
+let user
 
 function preload(){
 }
@@ -28,18 +30,19 @@ function setup() {
 
    for(let i = 0; i < numBlocks; i++){
      let x = random(0,width)
-     let y = 0;
-     let upblock = new Upbolck(x,y)
-     upBlocks.push(upblock)
+     let y = 0
+     let blockH = random(0,height/2)
+     let upBlock = new Upbolck(x,y,blockH)
+     upBlocks.push(upBlock)
 
    }
 
    mic = new p5.AudioIn() // mic to stand the p5 audioIn
    mic.start(); //user option of turning the mic
 
-   // let x = 20
-   // let y = height/2
-   //  let isaac = new User();
+   let x = 20
+   let y = height/2
+    user = new User(x,y);
 
 }
 
@@ -71,16 +74,21 @@ function draw() {
 
 function simulation(){
 
+  // let level = mic.getLevel()
+  //
+  // console.log(level)
   //simulation the basics of user object
-  // isaac.checkAudioIn()
-  // isaac.displayIsaac()
-  // isaac.movementOfIsaac()
+
+  user.checkAudioIn()
+  user.handleIsaac()
+  user.move()
+  user.displayIsaac()
 
   //upblock
-  for (let i = 0; i <  upblocks.length; i++){
-    let upblock = upblocks[i]
-    upbolck.move();
-    upbolck.wrap();
-    upbolck.display();
+  for (let i = 0; i <  upBlocks.length; i++){
+    let upBlock = upBlocks[i]
+    upBlock.move();
+    upBlock.wrap();
+    upBlock.display();
   }
 }

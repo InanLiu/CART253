@@ -12,9 +12,7 @@ class User {
     // Movement
     this.vx = 0;
     this.vy = 0;
-
-    // Starts out alive, but can die!
-    this.sounds:false
+    this.sounds = false
   }
 
   /**
@@ -43,28 +41,22 @@ class User {
       this.sounds = false;
     }
   }
-  handleIsaac() {
-    if (keyIsDown(LEFT_ARROW)) {
-    if (isaac.sounds === true){
+  handleIsaac(){
+
+    if (this.sounds === true){
       let level = mic.getLevel() // question why I have to call it in here to make it work
-      isaac.vy = -level * 5
+      this.vy = -level * 5
     }else{
-      isaac.vy = 1
+      this.vy =1
       }
-  }
 
-  /**
-  Add velocity to position
-  */
-  move() {
-    // isaac.x += isaac.vx
-    // isaac.y += isaac.vy
-  }
 
-  /**
-  Displays the pedestrian as a circle
-  */
-  display() {
+  }
+  move(){
+    // this.x += this.vx
+    // this.y += this.vy
+  }
+  displayIsaac(){
     push();
     ellipse(this.x,this.y,this.size)
     fill(255)
