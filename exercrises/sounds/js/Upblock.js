@@ -1,24 +1,11 @@
-class Upbolck{
+class Upbolck extends Block{
   constructor(x,y,blockH){
-    this.x = x;
-    this.y = y;
+    super(x,y,blockH)
     this.width = 20;
-    this.height = blockH;
     this.vx = 1;
-    this.vy = 0;
-  }
-  move(){
-    this.x -= this.vx
-    this.y += this.vy
-  }
 
-  wrap(){
-  if (this.x < 0){
-    this.x = width;
   }
-}
-
-  display(){
+  display(){ // display the upblock 
     push();
     rectMode(CENTER);
     noStroke();
@@ -27,8 +14,4 @@ class Upbolck{
     pop();
 
   }
-
-
-
-
 }

@@ -11,6 +11,7 @@ let mic;
 let state = `simulation`
 
 let upBlocks = [];
+let downBlocks = [];
 
 let numBlocks = 5;
 
@@ -34,6 +35,15 @@ function setup() {
      let blockH = random(0,height/2)
      let upBlock = new Upbolck(x,y,blockH)
      upBlocks.push(upBlock)
+
+   }
+
+   for(let i = 0; i < numBlocks; i++){
+     let x = random(0,width)
+     let y = height
+     let blockH = random(height/2,height)
+     let downBlock = new Downbolck(x,y,blockH)
+     downBlocks.push(downBlock)
 
    }
 
@@ -77,8 +87,8 @@ function simulation(){
   // let level = mic.getLevel()
   //
   // console.log(level)
-  //simulation the basics of user object
 
+  //simulation the basics of user object
   user.checkAudioIn()
   user.handleIsaac()
   user.move()
@@ -90,5 +100,12 @@ function simulation(){
     upBlock.move();
     upBlock.wrap();
     upBlock.display();
+  }
+
+  for (let i = 0; i <  downBlocks.length; i++){
+    let downBlock = downBlocks[i]
+    downBlock.move();
+    downBlock.wrap();
+    downBlock.display();
   }
 }
