@@ -8,96 +8,79 @@ Here is a description of this template p5 project.
 **************************************************/
 let mic;
 
-let isaac = {
-  x: 20,
-  y: 300,
-  size:40,
-  vx:0,
-  vy:0,
-  image:undefined,
-  sounds:false,
-};
+let state = `simulation`
+
+let upBlocks = [];
+
+let numBlocks = 10;
+
+let addUpBlockInterval = 20;
 
 let oscillator;
 
 function preload(){
-
-
 }
 // setup()
-//
-// Description of setup() goes here.
+
 function setup() {
    createCanvas(600,600);
    userStartAudio();
-   // oscillator = new p5.Oscillator(440,`sine`)
-   // oscillator.amp(0.1)
+
+   for(let i = 0; i < numBlocks; i++){
+     let x = random(0,width)
+     let y = 0;
+     let upblock = new Upbolck(x,y)
+     upBlocks.push(upblock)
+
+   }
 
    mic = new p5.AudioIn() // mic to stand the p5 audioIn
    mic.start(); //user option of turning the mic
 
+   // let x = 20
+   // let y = height/2
+   //  let isaac = new User();
 
 }
 
 // draw()
-//
-// Description of draw() goes here.
 function draw() {
   background(0);
 
-  let level = mic.getLevel()
+  if (state === `title`) {
+    title();
+  } else if (state === `simulation`) {
+    simulation();
+  } else if (state === `success`) {
+    success();
+  } else if (state === `dead`) {
+    dead();
+  }
 
-  // console.log(level)
 
   // let level
   // let newFreq = map(mouseY,height,0,10,22000);
   // let sinAngle = sin(angle);
   // let newFreq = map(sinAngle,-1,1,440,880)
   // oscillator.freq(newFreq);
-  //
-  checkAudioIn()
-  displayIsaac()
-  movementOfIsaac()
+
 
   // let newRate = map(mouseX,0,width,-3,3)
   // backSFX.rate(newRate);
 }
 
-// function mousePressed(){
-//
-//
-// }
-// function mouseReleased(){
-//
-// }
-function checkAudioIn(){
-  let level = mic.getLevel() // question why I have to call it in here to make it work
+function simulation(){
 
-  if (mic.getLevel() > 0.01){
-    isaac.sounds = true;
-  }else{
-    isaac.sounds = false;
+  //simulation the basics of user object
+  // isaac.checkAudioIn()
+  // isaac.displayIsaac()
+  // isaac.movementOfIsaac()
+
+  //upblock
+  for (let i = 0; i <  upblocks.length; i++){
+    let upblock = upblocks[i]
+    upbolck.move();
+    upbolck.wrap();
+    upbolck.display();
   }
-}
-
-function movementOfIsaac(){
-  if (isaac.sounds === true){
-  let level = mic.getLevel() // question why I have to call it in here to make it work
-  isaac.vy = -level * 5
-}else{
-  isaac.vy = 1
-}
-
-  //move the isaac
-  // isaac.x += isaac.vx
-  // isaac.y += isaac.vy
-
-
-}
-
-function displayIsaac(){
-  push();
-  ellipse(isaac.x,isaac.y,isaac.size)
-  fill(255)
-  pop();
 }
