@@ -46,7 +46,7 @@ function setup() {
      let x = random(0,width);  // the length of blocks will be random (with some limition-- can be better)
      let y = height;
      let blockH = random(height/2,height);
-     let downBlock = new Downbolck(i*space,y,blockH); / blocks will be place in same distance
+     let downBlock = new Downbolck(i*space,y,blockH); // blocks will be place in same distance
      blocks.push(downBlock);
 
    }
