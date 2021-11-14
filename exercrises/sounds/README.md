@@ -11,4 +11,4 @@ point:
 problem:
 1. unexpected bug when check of collision(can not be defined in Isaac class)  (same method worked before)
 (ask on next class studio)
-2. the firefox can not detect my audioin? IDK why (need be fix)
+2. the firefox can not detect my audioin and fire fox will detect the PolySynth as audioIN?  IDK why (need be fix)
