@@ -53,12 +53,9 @@ class DarkBramble {
                 fill(
                     max((
                         (((this.bramblesList.indexOf(bramble) - 1) / this.bramblesList.length)) * 255 +
-                        (1 - ((bramble.indexOf(section) + bramble.length - 2) / bramble.length)) * 150), 0)
-                )
+                        (1 - ((bramble.indexOf(section) + bramble.length - 2) / bramble.length)) * 150), 0))
                 rotate(section[0])
-                rect(
-                    0, -section[2] / 2, section[1], section[2]
-                )
+                rect(0, -section[2] / 2, section[1], section[2])
                 translate(section[1], 0)
                 ellipse(0, 0, section[2])
             }
