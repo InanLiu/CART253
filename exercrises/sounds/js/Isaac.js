@@ -12,7 +12,9 @@ class User {
     // Movement
     this.vx = 0;
     this.vy = 0;
+    //audioin or not
     this.sounds = false;
+    //chech the collision
     this.alive = true;
   }
 
@@ -31,9 +33,8 @@ class User {
     }
   }
 
-  /**
-  Checks arrow keys and sets velocity appropriately
-  */
+
+ // check if user make any sound or not
   checkAudioIn(){
     let level = mic.getLevel() // question why I have to call it in here to make it work
 
@@ -43,6 +44,7 @@ class User {
       this.sounds = false;
     }
   }
+  //the handle of userobject (with the audioin)  (gravity)
   handleIsaac(){
 
     if (this.sounds === true){
@@ -54,10 +56,12 @@ class User {
 
 
   }
+  //simple movement
   move(){
-    // this.x += this.vx
-    // this.y += this.vy
+    this.x += this.vx
+    this.y += this.vy
   }
+  //display user obect (circle)
   displayIsaac(){
     push();
     ellipse(this.x,this.y,this.size)
