@@ -1,6 +1,6 @@
 "use strict";
 
-let state = colourfulBrush;
+let state = `colourfulBrush`;
 //random dot for the water ink state
 let colorfilling = [`rgba(228,138,160,0.5)`,`rgba(59,134,122,0.5)`,`rgba(57,79,133,0.5)`,
   `rgba(139,158,154,0.5)`,`rgba(169,188,167,0.5,)`,`rgba(245,210,83,0.5)`]
@@ -8,11 +8,10 @@ let colorfilling = [`rgba(228,138,160,0.5)`,`rgba(59,134,122,0.5)`,`rgba(57,79,1
 //
 // Description of setup() goes here.
 function setup() {
-  createCanvas(windowWdith, windowHeight);
-  background(230);
+  createCanvas(windowWidth, windowHeight);
+  background(0);
   noStroke();
-)
-  }
+
 }
 // draw()
 //
@@ -39,11 +38,15 @@ function draw() {
 
 }
 function colourfulBrush(){
+  // all virables should be contorlable by user
   push()
-  fill()
   colorMode(HSB)
-  fill(frameCout)
-  ellipse(mouseX, mouseY, 30, 30 )
+  fill(frameCount % 360,100,100)
+  translate(mouseX, mouseY);
+  rotate(frameCount/40)
+  for (let i = -30; i <= 30 ; i += 4){
+  ellipse(i, 0, 2, 2 );
+}
   pop()
 }
 // start different brushes
