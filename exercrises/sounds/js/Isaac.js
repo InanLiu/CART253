@@ -12,22 +12,24 @@ class User {
     // Movement
     this.vx = 0;
     this.vy = 0;
-    this.sounds = false
+    this.sounds = false;
+    this.alive = true;
   }
 
   /**
-  Checks whether the pedestrian's centre-point overlaps
-  the provided vehicle
+  Checks whether the Isaac's centre-point overlaps
+  the provided block
   */
-  // checkHit(vehicle) {
-  //   if (this.x > vehicle.x - vehicle.width/2 &&
-  //       this.x < vehicle.x + vehicle.width/2 &&
-  //       this.y > vehicle.y - vehicle.height/2 &&
-  //       this.y < vehicle.y + vehicle.height/2) {
-  //     // If there's an overlap the pedestrian is DEAD
-  //     this.alive = false;
-  //   }
-  // }
+  checkHit(block) {
+
+    if (this.x > block.x - block.width/2 &&
+        this.x < block.x + block.width/2 &&
+        this.y > block.y - block.height/2 &&
+        this.y < block.y + block.height/2) {
+      // If there's an overlap the Isaac is DEAD
+      this.alive = false;
+    }
+  }
 
   /**
   Checks arrow keys and sets velocity appropriately

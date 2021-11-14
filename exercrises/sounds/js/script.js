@@ -8,51 +8,58 @@ Here is a description of this template p5 project.
 **************************************************/
 let mic;
 
-let state = `simulation`
+let synth;
 
-let upBlocks = [];
-let downBlocks = [];
+let notes = [`F4`,`A3`,`E3`,`Bb4`,`Eb3`,`D3`,`Ab4`,`F#3`];
 
-let numBlocks = 5;
+let state = `simulation`;
+
+let blocks = [];
+
+let numBlocks = 100;
+
+let space = 150;
 
 let addUpBlockInterval = 20;
 
 let oscillator;
 
-let user
+let user;
 
 function preload(){
 }
 // setup()
 
 function setup() {
-   createCanvas(600,600);
+   createCanvas(1200,600);
    userStartAudio();
 
    for(let i = 0; i < numBlocks; i++){
-     let x = random(0,width)
-     let y = 0
-     let blockH = random(0,height/2)
-     let upBlock = new Upbolck(x,y,blockH)
-     upBlocks.push(upBlock)
+     let x = random(0,width);
+     let y = 0;
+     let blockH = random(0,height/2);
+     let upBlock = new Upbolck(i*space,y,blockH);
+     blocks.push(upBlock);
 
    }
 
    for(let i = 0; i < numBlocks; i++){
-     let x = random(0,width)
-     let y = height
-     let blockH = random(height/2,height)
-     let downBlock = new Downbolck(x,y,blockH)
-     downBlocks.push(downBlock)
+     let x = random(0,width);
+     let y = height;
+     let blockH = random(height/2,height);
+     let downBlock = new Downbolck(i*space,y,blockH);
+     blocks.push(downBlock);
 
    }
-
-   mic = new p5.AudioIn() // mic to stand the p5 audioIn
+   synth = new p5.PolySynth();
+   mic = new p5.AudioIn(); // mic to stand the p5 audioIn
    mic.start(); //user option of turning the mic
+
+   userStartAudio();
 
    let x = 20
    let y = height/2
-    user = new User(x,y);
+   user = new User(x,y);
 
 }
 
@@ -89,23 +96,26 @@ function simulation(){
   // console.log(level)
 
   //simulation the basics of user object
-  user.checkAudioIn()
-  user.handleIsaac()
-  user.move()
-  user.displayIsaac()
+  user.checkAudioIn();
+  user.handleIsaac();
+  user.move();
+  user.displayIsaac();
 
-  //upblock
-  for (let i = 0; i <  upBlocks.length; i++){
-    let upBlock = upBlocks[i]
-    upBlock.move();
-    upBlock.wrap();
-    upBlock.display();
-  }
 
-  for (let i = 0; i <  downBlocks.length; i++){
-    let downBlock = downBlocks[i]
-    downBlock.move();
-    downBlock.wrap();
-    downBlock.display();
+  //polymorphism of arrary of my blocks
+  for (let i = 0; i < blocks.length;i++){
+    let block = blocks[i]
+    block.move();
+    block.display();
+    // user.checkHit();
+
   }
 }
+ function mousePressed(){
+   //start bgm
+   setInterval(playNote,400)
+ }
+ function playNote(){
+   let randomNote = random(notes);
+   synth.play(randomNote,0.3,0.5,0.2)
+ }
