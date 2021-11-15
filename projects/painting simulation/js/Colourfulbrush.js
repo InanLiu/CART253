@@ -8,24 +8,19 @@ class Colourfulbrush{
     this.hue = hue
     this.width = 2;
     this.height = 2;
+    // to define the color will change or not
+    this.aotuHue = true;
 
   }
-  move(){
-    this.x += this.vx
-    this.y += this.vy
-  }
 
-  wrap(){
-    if (this.x > width){
-      this.x -=width;
-    }
-  }
   display(){
+
+    if (mouseIsPressed){
+        background(0)    //use mouse to clean the canvas
+    }
     push();
-    rectMode(CENTER);
     noStroke();
-    fill(255,0,0)
-    rect(this.x,this.y,this.width,this.height);
+    const hue = autoHue ? frameCount % 360   // learn form Dave Briccetti
     pop();
 
   }
