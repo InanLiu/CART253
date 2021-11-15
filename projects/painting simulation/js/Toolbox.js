@@ -27,7 +27,9 @@ class Toolbox{
     pop();
 
   }
+  checkClickAndState(){  //fill in subclass
 
+  }
 
 
 

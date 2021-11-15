@@ -1,15 +1,15 @@
-function setup() {
+function setup() {   //learn from the tutorial 
     createCanvas(700, 500)
     background(0)
     noStroke()
-    translate(width / 2, height / 2)
-    db = new DarkBramble(20)
-    db.Generate_the_bramblesList()
+    translate(width / 2, height / 2) // make DarkBramble flash effect
+    darkBramble = new DarkBramble(20)
+    darkBramble.generateDarkBramble()
 }
 
 setInterval(function() {
-    db.Traverse_the_List()
-    db.Change_the_List()
+    darkBramble.traverseTheList()
+    darkBramble.changeTheList()
 }, 50)
 
 
@@ -19,7 +19,7 @@ class DarkBramble {
         this.bramblesList = new Array()
     }
 
-    Generate_the_bramblesList() {
+    generateDarkBramble() {
         for (let i = 0; i < this.tn; i++) {
             let wid = random(Array.from({ length: 4 }, (item, index) => index + 5))
             let bramble = new Array()
@@ -33,7 +33,7 @@ class DarkBramble {
         }
     }
 
-    Change_the_List() {
+    changeTheList() {
         this.bramblesList.shift()
         let wid = random(Array.from({ length: 4 }, (item, index) => index + 5))
         let bramble = new Array()
@@ -46,20 +46,18 @@ class DarkBramble {
         this.bramblesList.push(bramble)
     }
 
-    Traverse_the_List() {
+    traverseTheList() {
         for (let bramble of this.bramblesList) {
-            push()
+            push();
             for (let section of bramble) {
-                fill(
-                    max((
-                        (((this.bramblesList.indexOf(bramble) - 1) / this.bramblesList.length)) * 255 +
-                        (1 - ((bramble.indexOf(section) + bramble.length - 2) / bramble.length)) * 150), 0))
-                rotate(section[0])
-                rect(0, -section[2] / 2, section[1], section[2])
-                translate(section[1], 0)
-                ellipse(0, 0, section[2])
+            fill(max(((((this.bramblesList.indexOf(bramble) - 1) / this.bramblesList.length)) * 255 +
+            (1 - ((bramble.indexOf(section) + bramble.length - 2) / bramble.length)) * 150), 0));
+            rotate(section[0]);
+            rect(0, -section[2] / 2, section[1], section[2]);
+            translate(section[1], 0);
+            ellipse(0, 0, section[2]);
             }
-            pop()
+            pop();
         }
     }
 }
