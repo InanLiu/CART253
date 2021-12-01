@@ -4,7 +4,7 @@ let autoRotate = true;
 let manualRotationAngle = 0;
 let autoHue = true;
 let manualHue = 0;
-let state = `canvas`;
+let state = `canvas`;//ada
 //random dot for the water ink state
 let colorfilling = [`rgba(228,138,160,0.5)`,`rgba(59,134,122,0.5)`,`rgba(57,79,133,0.5)`,
   `rgba(139,158,154,0.5)`,`rgba(169,188,167,0.5,)`,`rgba(245,210,83,0.5)`]
