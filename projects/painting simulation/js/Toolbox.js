@@ -20,12 +20,14 @@ class Toolbox{
       this.inside = false;
     }
   }
-  ClickInside(){
-    
+  ClickInside(px,py){
+    if ((px > this.x) && (px < (this.x +this.width) ) && (py > this.y) && (py < (this.y + this.height)) ){
+      this.active = !this.active
   }
+}
   over(){
     if (this.inside === true){
-      this.brightness = 200
+      this.brightness =  200
     }else{
       this.brightness = 0
     }
@@ -38,6 +40,8 @@ class Toolbox{
   display(){
     push();
 
+    // let buttons = createButton(`123213`)
+    // buttons.position(this.x,this.y)
     strokeWeight(2);
     stroke(51)
     fill(this.brightness,125)
