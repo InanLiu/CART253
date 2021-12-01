@@ -1,4 +1,5 @@
 "use strict";
+// An array of buttons
 
 let autoRotate = true;
 let manualRotationAngle = 0;
@@ -12,7 +13,7 @@ let colorfilling = [`rgba(228,138,160,0.5)`,`rgba(59,134,122,0.5)`,`rgba(57,79,1
 let toolBoxes = []; //stuff should be in the toolBoxes:3brushes , color change , eraser
 //,drawing style change (time bases, speed bases,resting), dots effect, change the background color
 
-let numToolBoxes = 15
+let numToolBoxes = 8
 // setup()
 //
 // Description of setup() goes here.
@@ -24,7 +25,7 @@ function setup() {
   // need find the way make it out of the setup or organization
   //arrary of the toolboxs
   for(let i = 0; i < numToolBoxes; i++){
-    let toolBox = new Toolbox(20,i*40+20); // boxes will be place in same distance and touched
+    let toolBox = new Toolbox(0,i*40+20); // boxes will be place in same distance and touched
     toolBoxes.push(toolBox);
 }
 }
@@ -47,13 +48,15 @@ function draw() {
    }
 }
 function mainCanvas(){
-  colourfulBrush(); // the temporary need be improve
+//  colourfulBrush(); // the temporary need be improve
   displayToolbox();  // indivual interaction need be made
 }
 
 function displayToolbox(){ //show the toolboxes
   for (let i = 0; i < toolBoxes.length;i++){
   let toolBox = toolBoxes[i]
+  toolBox.CheckInside(mouseX,mouseY);
+  toolBox.over();
   toolBox.display();
   }
 }
