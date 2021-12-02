@@ -1,65 +1,51 @@
 function setup() {
-    createCanvas(700, 500)
-    background(0)
-    noStroke()
-    translate(width / 2, height / 2)
-    db = new DarkBramble(20)
-    db.Generate_the_bramblesList()
+	createCanvas(windowWidth, windowHeight);
+	background(0);
 }
 
-setInterval(function() {
-    db.Traverse_the_List()
-    db.Change_the_List()
-}, 50)
+function draw() {
+	// background(0,1)
+	// var count = int(random(5,15))
+	// var r = random(50,200)
+	// for( var i=0;i<count;i++){
+	// 	fill(random(255,200),random(188,255),random(100,200))
+	// 	noStroke()
+	// 	// noFill()
+	// 	// stroke(random(255,200),random(255),random(100,200))
+	// 	ellipse(mouseX +i*5,mouseY-i*5,r)
+	// 	r*=0.9
+	// }
+}
+var mode = 1
+function mousePressed(){
+	mode++
+	// print(mode)
+	if (mode>3){
+		mode=1
+	}
 
+}
+function mouseMoved(){
+	var count = int(random(50,250))
+	var r = random(2,20)
+	noStroke()
+	var delta = sqrt(dist(pmouseX,pmouseY,mouseX,mouseY))*5
+	//  變數 = sqrt 開根號 dist 之前滑鼠位置 和現在滑鼠位置 的距離 *5
+	if (mode==1){
+		for( var i=0;i<count;i++){
+			fill(random(frameCount%255+mouseY),random(200,255),random(255,155))
+			ellipse(mouseX +random(-delta,delta),mouseY-random(-delta,delta),r)
+			r*=0.9
+		}
+	}else if ( mode==2){
 
-class DarkBramble {
-    constructor(bramblesNum) {
-        this.tn = bramblesNum
-        this.bramblesList = new Array()
-    }
+			fill(random(255,200),random(255),random(100,200))
+			ellipse(mouseX +random(-30,30),mouseY-random(-30,30),r)
 
-    Generate_the_bramblesList() {
-        for (let i = 0; i < this.tn; i++) {
-            let wid = random(Array.from({ length: 4 }, (item, index) => index + 5))
-            let bramble = new Array()
-            for (let j = 0; j < (wid * 2 - 2); j++) {
-                let angle = random(TWO_PI)
-                let len = random(100)
-                let section = [angle, len, wid - 0.5 * j]
-                bramble.push(section)
-            }
-            this.bramblesList.push(bramble)
-        }
-    }
+	}else{
+		noFill()
+		stroke(random(255,200),random(188,255),random(100,200))
+		ellipse(mouseX +random(-30,30),mouseY-random(-30,30),r)
 
-    Change_the_List() {
-        this.bramblesList.shift()
-        let wid = random(Array.from({ length: 4 }, (item, index) => index + 5))
-        let bramble = new Array()
-        for (let j = 0; j < (wid * 2 - 2); j++) {
-            let angle = random(TWO_PI)
-            let len = random(100)
-            let section = [angle, len, wid - 0.5 * j]
-            bramble.push(section)
-        }
-        this.bramblesList.push(bramble)
-    }
-
-    Traverse_the_List() {
-        for (let bramble of this.bramblesList) {
-            push()
-            for (let section of bramble) {
-                fill(
-                    max((
-                        (((this.bramblesList.indexOf(bramble) - 1) / this.bramblesList.length)) * 255 +
-                        (1 - ((bramble.indexOf(section) + bramble.length - 2) / bramble.length)) * 150), 0))
-                rotate(section[0])
-                rect(0, -section[2] / 2, section[1], section[2])
-                translate(section[1], 0)
-                ellipse(0, 0, section[2])
-            }
-            pop()
-        }
-    }
+	}
 }
