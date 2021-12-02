@@ -6,11 +6,13 @@ let manualRotationAngle = 0;
 let autoHue = true;
 let manualHue = 0;
 let activeCB = false;
+let activePP = false;
 let state = `canvas`;//ada
 //random dot for the water ink state
 let colorfilling = [`rgba(228,138,160,0.5)`,`rgba(59,134,122,0.5)`,`rgba(57,79,133,0.5)`,
   `rgba(139,158,154,0.5)`,`rgba(169,188,167,0.5,)`,`rgba(245,210,83,0.5)`]
 
+let pencilPens = []
 let toolBoxes = []; //stuff should be in the toolBoxes:3brushes , color change , eraser
 //,drawing style change (time bases, speed bases,resting), dots effect, change the background color
 
@@ -51,6 +53,7 @@ function draw() {
 }
 function mainCanvas(){
 //  colourfulBrush(); // the temporary need be improve
+
   checkState()
   useBrushes()
   displayToolbox();  // indivual interaction need be made
@@ -81,19 +84,28 @@ function colourfulBrush(){   // brush which is not satisfy (on mood) need be imp
 }
   pop()
 }
-// start different brushes
-function keyPressed(event){   //should be in the button in the future
-   switch(event.key){ //switch event (will be use alot in toolboxes and part 2)  // learn from   Dave Briccetti
-     case'H':
-       autoHue = ! autoHue;
-       break;
-   }
+function showPencilPen(){
+  let pencil = new PencilPen()
+  pencilPens.push(pencil)
+
+  for (let pencil of pencilPens){
+    pencil.show()
+  }
 }
+
+// start different brushes
+
 function checkState(){
   if (toolBoxes[0].active === true){
     activeCB = true
   }else if (toolBoxes[0].active === false){
     activeCB = false
+  }
+
+  if (toolBoxes[1].active === true){
+    activePP = true
+  }else if (toolBoxes[1].active === false){
+    activePP = false
   }
 }
 function mousePressed(){
@@ -106,5 +118,8 @@ function mousePressed(){
 function useBrushes(){
   if ( activeCB === true && mouseIsPressed) {
     colourfulBrush()
+}
+if ( activePP === true && mouseIsPressed) {
+   showPencilPen()
 }
 }
