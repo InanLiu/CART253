@@ -4,21 +4,21 @@ class PencilPen{
     this.py = pmouseY;
     this.x = mouseX;
     this.y = mouseY;
-    this.size = random(10,20)
-    this.hue = 0
-    this.opacity = map(this.life, 1, 0, 255, 0)
+    this.size = 10
 }
 show (){
 
 
   push();
-  colorMode(HSB, 255);
-  noStroke()
-  this.hue += 10
-  fill(color(this.hue, 255, 255,))
+  strokeWeight(3)
+  stroke(234, 250, 7 ,15)
   ellipse(this.x, this.y, this.size)
   pop();
 
-
+  push();
+  strokeWeight(2)
+  stroke(255)
+  line(this.px, this.py, this.x , this.y)
+  pop();
 }
 }

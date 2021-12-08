@@ -120,6 +120,6 @@ function useBrushes(){
     colourfulBrush()
 }
 if ( activePP === true && mouseIsPressed) {
-   showPencilPen()
+    showPencilPen()
 }
 }
