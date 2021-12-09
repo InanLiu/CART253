@@ -116,7 +116,7 @@ function mousePressed(){
 }
 
 function useBrushes(){
-  if ( activeCB === true && mouseIsPressed) {
+  if ( activeCB === true && mouseIsPresse) {
     colourfulBrush()
 }
 if ( activePP === true && mouseIsPressed) {
