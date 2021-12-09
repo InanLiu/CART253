@@ -28,7 +28,7 @@ let isreleased=false;
 
 let picSun = undefined;
 let picMoon = undefined;
-let picAfterNoon = undefined;
+let picNightfall = undefined;
 let picTimer = undefined;
 let picEraser = undefined;
 let picSave = undefined;
@@ -38,9 +38,34 @@ let picTri = undefined;
 let picLines = undefined;
 let picCube = undefined;
 let picStar = undefined;
+let picPause = undefined;
+let picStart = undefined;
+let picClear = undefined;
+let picSakura = undefined;
+let picSnow = undefined;
+let picHand = undefined;
+let picBlackhole = undefined;
 //set the canvas and display all the buttons
   function preload(){
-  picSave = loadImage(`assets/images/sun1.png`)
+  picSun = loadImage(`assets/images/sun1.png`);
+  picMoon = loadImage(`assets/images/moon.png`);
+  picNightfall = loadImage(`assets/images/nightfall.png`);
+  picTimer = loadImage(`assets/images/clock.png`);
+  picEraser = loadImage(`assets/images/eraser.png`);
+  picSave = loadImage(`assets/images/save.png`);
+  picWind = loadImage(`assets/images/wind.png`);
+  picCircle = loadImage(`assets/images/circle.png`);
+  picTri = loadImage(`assets/images/triangle.png`);
+  picLines= loadImage(`assets/images/line.png`);
+  picCube= loadImage(`assets/images/cube.png`);
+  picStar = loadImage(`assets/images/star.png`);
+  picPause = loadImage(`assets/images/pause.png`);
+  picStart = loadImage(`assets/images/start.png`);
+  picClear = loadImage(`assets/images/clear.png`);
+  picSakura = loadImage(`assets/images/sakura.png`);
+  picSnow = loadImage(`assets/images/snow.png`);
+  picHand = loadImage(`assets/images/hand.png`);
+  picBlackhole = loadImage(`assets/images/blackhole.png`);
   }
   function setup() {
     frameRate(FPS);
@@ -168,7 +193,8 @@ let picStar = undefined;
       }
     }
 
-    //Canvas
+    //Canvas and brush Generate part
+    //should be improve with more virables
     if (mouseX > 110 || isMenuHide) {
       noCursor();
       fill(R * 1.5, G * 1.5, B * 1.5);
@@ -260,6 +286,8 @@ let picStar = undefined;
 
   function snow(x,y,size){
     //stroke(color(0, 0, 255));
+    //drawing of the snow
+    // inspire by https://openprocessing.org/sketch/1212872 by Jukku
 	  strokeCap(ROUND);
     strokeWeight(size/8);
     line(x, y, x+size, y);
@@ -313,7 +341,8 @@ let picStar = undefined;
 
   function star(x,y,size,r,g,b){
 
-
+    //drawing of the star
+    //idea from person5 art book
     let size2=size/1.8;
 
 		fill(r,g,b);
@@ -353,6 +382,7 @@ let picStar = undefined;
   }
 
   function sakura(x,y,size,r,g,b){
+    //draw of sakura
     fill(r,g,b);
     noStroke();
     translate(x,y);
@@ -371,7 +401,7 @@ let picStar = undefined;
     endShape();
   }
 
-  function hanabi(x,y,R,G,B) {
+  function hanabi(x,y,R,G,B) { // extra mading brush , not 100 persent Satisfied
     this.lock=false;
 	  this.centerx=x;
 		this.centery=y;
@@ -429,20 +459,20 @@ hanabi.prototype.update = function() {
 
     }
   }
-
+ // hot keys
   function keyPressed() {
     if (keyCode === 66) { //B
       boxes[21].clickButton();
     }
-    if (keyCode === 32) { //Space
+    if (keyCode === 32) { //Space to random the rgb
       R=random(255);
       G=random(255);
       B=random(255);
     }
-    if (keyCode === 16) { //Shift L
+    if (keyCode === 16) { //Shift L to hide the menw
       isMenuHide = !isMenuHide;
     }
-    if (keyCode === 83) { //S
+    if (keyCode === 83) { //S to sabe the picture
       boxes[18].clickButton();
     }
   }

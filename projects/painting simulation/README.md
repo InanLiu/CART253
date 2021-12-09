@@ -3,13 +3,8 @@
 Project 2
 Liu Shanqi
 Painting simulation  
-plan: finish part1 (draw simulation) before 19th
-part2 before Nov{  
-  level design for 5 days
-  programing for a week     
-  working both in same time
-}
-final edition and  
+
+final edition
 
 questions during the studio{
   1. picture storage
@@ -18,6 +13,7 @@ questions during the studio{
   4. bugs
 }
 
-The puzzle process is always at the core of click-and-decipher games, and the best way to do it is to hone it. Puzzle-solving should provide relatively clear goals, tell the player what they want to do, with both long-term (final) goals and short-term (current) goals. There is a decryption of the need for clues or hints, narrow or point out the scope of the puzzle, do not force the player to click the full screen again. The hits need to be reasonable, and in a form that the player can accept, otherwise, it feels like a pure puzzle designed to understand the puzzle.
 
+All the source that provide inspiration  Thanks！！！
 https://www.youtube.com/watch?v=hS_WqkyUah8
+https://openprocessing.org/sketch/1212872 by Jukku
