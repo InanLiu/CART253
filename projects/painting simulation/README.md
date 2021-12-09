@@ -21,11 +21,13 @@ Personally, I like drawing. Although I am not good at drawing. Drawing is a very
 
 I made more than three visions of structures and the comprehensive structure cost ton of hours to try out and debug. It is like the roller coaster, the suffering during the debugging will finally transfer to pleasant when its success.
 
+visions 1 (trash bin): buttons without class 
+visions 2 ()：static brush
 
 All the source that provide inspiration  Thanks！！！
 https://www.youtube.com/watch?v=hS_WqkyUah8  (function and object-oriented programming)
 https://openprocessing.org/sketch/1212872 by Jukku (snow)
 https://openprocessing.org/sketch/400658  by jason labble (bubble and moving circle )
 https://editor.p5js.org/Wangshuo/sketches/BJn8aCbZ4 (whole  Mechanism and structure)
-https://pippinbarr.github.io/cart253-2021/projects/project2/ (review and learned more )
+https://pippinbarr.github.io/cart253-2021/projects/project2/ (review and learn more )
 https://openprocessing.org/sketch/793375 (tutorial of water ink brush)
