@@ -910,6 +910,17 @@ function FuncBtn(X, Y, W, H, CMD) {
 
   //鼠标点击事件
   function mouseClicked() {
+    if (brushType=="STAR"&&mouseX>40) {
+      var position = createVector(mouseX, mouseY);
+      //将新画的图像存入数组中，设置位置，大小（滑动越快越大），颜色
+      objs.push(new Node(position, sqrt(sq(mouseX - pmouseX) + sq(mouseY - pmouseY)), R, G, B));
+    }
+    if(mouseX>=-252&&mouseX<=-55&&mouseY>=28&&mouseY<=225)
+      {
+        R=RGBcolor.r;
+        B=RGBcolor.b;
+        G=RGBcolor.g;
+      }
 
     if (!isMenuHide) {
       for (var i = 0; i < btns.length; i++) {

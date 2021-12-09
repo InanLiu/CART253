@@ -152,15 +152,8 @@ function FuncButton(X, Y, W, H, CMD) {
 
     if (this.cmd == "sun") {
         //画出太阳形状
-      fill(255, 50, 50);
-      translate(this.x + this.w / 2, this.y + this.h / 2);
-      for (var i = 0; i < 8; i++) {
-        rotate(PI / 4.0);
-        line(0, 0, 8, 8);
-      }
-      resetMatrix();
-      ellipse(this.x + this.w / 2, this.y + this.h / 2, 15, 15);
 
+      image(picSave,this.x+33, this.y , 30, 30);
 
     } else if (this.cmd == "moon") {
         //画出月亮

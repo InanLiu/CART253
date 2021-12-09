@@ -1,404 +1,131 @@
-//全局变量
-let objs = [];  //已画图形存放
-let boxes = [];  //已画按钮存放
-let FPS = 60;   //帧率
-let timepast = 0;   //时间记录
+//global var
+let objs = [];  //all the shapes
+let boxes = [];  //all the bottons
+let FPS = 60;   //frame
+let timepast = 0;   //time records
 
-//画笔色
+//brush color
 let R = 200;
 let G = 150;
 let B = 50;
-//背景色
+//bg color
 let bR = 0;
 let bG = 0;
 let bB = 50;
 
-let eraserRange = 20;         //消除范围大小
-let timerRange = 50;          //时停范围大小
+let eraserRange = 20;         //the range of the clearer
+let timerRange = 50;          //the range of the time stop
 let controlRange=20;
-let brushType = "CIRCLE";     //当前画笔模式
-let pbrushType = "CIRCLE";    //之前画笔模式
-let isPlaying = true;         //是否暂停
-let isMenuHide = false;       //菜单是否隐藏
-let wind=10;
-let isWindR=false;
-let isWindL=false;
-let isBlackHOle=false;
+let brushType = "CIRCLE";     //current brush mode
+let pbrushType = "CIRCLE";    //last brush mode
+let isPlaying = true;         //check the pause is active or not
+let isMenuHide = false;       //show the menu or not
+let wind=10;                  // power of the wind
+let isWindR=false;            // wind to right mode
+let isWindL=false;            // wind to left mode
+let isBlackHOle=false;        // black hole mode
 let isreleased=false;
 
-
-
-
-  //图形结点函数
-//   function Bursh(position, givenSize, givenR, givenG, givenB) {
-//       //颜色
-//     this.R = givenR;
-//     this.G = givenG;
-//     this.B = givenB;
-//     //位置
-//     this.position = createVector(position.x, position.y);
-//     this.position.x += (random(20) - 10);
-//     this.position.y += (random(20) - 10);
-//     //大小
-//     this.size = createVector(0, 0);
-//     this.sizeScale = 0.5;
-//     let randomSize = givenSize / 2 + random(10);
-//     this.baseSize = createVector(randomSize, randomSize);
-//
-//     this.timepast = 0;
-//     this.isPlaying = isPlaying;
-//     this.rotateAngle = random(2 * PI);
-//     this.shapeType = brushType;
-//     this.pmouseX = pmouseX;
-//     this.pmouseY = pmouseY;
-//     this.mouseX = mouseX;
-//     this.mouseY = mouseY;
-//
-//     this.ballx=mouseX;
-//     this.bally=mouseY;
-//     this.vx=(random(4) - 2);
-//     this.vy=(random(6) - 3);
-//
-//     this.snowx=mouseX;
-//     this.snowy=mouseY;
-//     this.snowg=2;
-//     this.snowSize=random(5)+5;
-//     this.snowAngle=0.005*PI;
-//     this.snowTurn=random(1);
-//     this.snowColor=random(1.5)+1;
-//
-//     this.starx=mouseX;
-//     this.stary=mouseY;
-//     this.starsize=50;
-//     this.startime=0;
-//     this.starAngle=random(2)*PI;
-//
-//     this.rleasedX=(random(10)-5);
-//     this.rleasedY=(random(10)-5);
-//
-//     this.isControled=false;
-//
-//     this.sakuraX=mouseX;
-//     this.sakuraY=mouseY;
-//     this.sakuraG=2;
-//     this.sakuraSize=random(10)+5;
-//     this.sakuraAngle=0.005*PI;
-//     this.sakuraTurn=random(1);
-//     this.sakuraColor=random(1.5)+1;
-//     this.sakuraType=random(1)-0.5;
-//
-//   }
-//   //添加drawing函数
-//   Bursh.prototype.drawing = function() {
-//     noStroke();
-//     if (this.shapeType === "CIRCLE") {
-//       if(isBlackHOle){
-//         this.position.x+=(mouseX-this.position.x)/200;
-//         this.position.y+=(mouseY-this.position.y)/200;
-//       }
-//       else if(isreleased){
-//         this.position.x+=this.rleasedX/10;
-//         this.position.y+=this.rleasedY/10;
-//       }
-//
-//       if(this.isControled){
-//         this.position.x+=(mouseX-this.position.x)/10;
-//         this.position.y+=(mouseY-this.position.y)/10;
-//       }
-//       translate(this.position.x, this.position.y);
-//       fill(this.size.x * this.R / 10, this.size.x * this.G / 10, this.size.x * this.B / 10, round(sin(this.timepast) * 128));
-//       ellipse(sin(this.timepast) * this.baseSize.x, cos(this.timepast) * this.baseSize.y, this.size.x * 1.25, this.size.y * 1.25);
-//       fill(this.size.x * this.R / 10, this.size.x * this.G / 10, this.size.x * this.B / 10, 255);
-//       ellipse(sin(this.timepast) * this.baseSize.x, cos(this.timepast) * this.baseSize.y, this.size.x, this.size.y);
-//       resetMatrix();
-//
-//
-//     } else if (this.shapeType === "TRIANGLE") {
-//       if(isBlackHOle){
-//         this.position.x+=(mouseX-this.position.x)/200;
-//         this.position.y+=(mouseY-this.position.y)/200;
-//       }
-//       else if(isreleased){
-//         this.position.x+=this.rleasedX/10;
-//         this.position.y+=this.rleasedY/10;
-//       }
-//
-//       if(this.isControled){
-//         this.position.x+=(mouseX-this.position.x)/10;
-//         this.position.y+=(mouseY-this.position.y)/10;
-//       }
-//       translate(this.position.x, this.position.y);
-//       rotate(this.rotateAngle);
-//       fill(this.size.x * this.R / 10, this.size.x * this.G / 10, this.size.x * this.B / 10, round(sin(this.timepast) * 128));
-//       triangle(sin(this.timepast) * this.baseSize.x - this.size.x * 1.5 * 0.5,
-//         cos(this.timepast) * this.baseSize.y - this.size.y * 1.5 * 0.5,
-//
-//         sin(this.timepast) * this.baseSize.x + this.size.x * 1.5 * 0.5,
-//         cos(this.timepast) * this.baseSize.y - this.size.y * 1.5 * 0.5,
-//
-//         sin(this.timepast) * this.baseSize.x * 0.5,
-//         cos(this.timepast) * this.baseSize.y + this.size.y * 1.5 * 0.9 * 0.5);
-//
-//       fill(this.size.x * this.R / 10, this.size.x * this.G / 10, this.size.x * this.B / 10, 255);
-//       triangle(sin(this.timepast) * this.baseSize.x - this.size.x * 0.5,
-//         cos(this.timepast) * this.baseSize.y - this.size.y * 0.5,
-//
-//         sin(this.timepast) * this.baseSize.x + this.size.x * 0.5,
-//         cos(this.timepast) * this.baseSize.y - this.size.y * 0.5,
-//
-//         sin(this.timepast) * this.baseSize.x * 0.5,
-//         cos(this.timepast) * this.baseSize.y + this.size.y * 0.9 * 0.5);
-//       resetMatrix();
-//
-//
-//     } else if (this.shapeType === "LINES") {
-//
-//
-//       strokeWeight(2 + this.size.x / 1.5 * 0.75);
-//       stroke(this.size.x * this.R / 8, this.size.x * this.G / 8, this.size.x * this.B / 8, round(sin(this.timepast) * 128));
-//       line(this.pmouseX, this.pmouseY, this.mouseX, this.mouseY);
-//       strokeWeight(1.5 + this.size.x / 1.5 * 0.5);
-//       stroke(this.size.x * this.R / 8, this.size.x * this.G / 8, this.size.x * this.B / 8, 255);
-//       line(this.pmouseX, this.pmouseY, this.mouseX, this.mouseY);
-//
-//
-//     }else if (this.shapeType === "CUBE") {
-//       if(isBlackHOle){
-//         this.position.x+=(mouseX-this.position.x)/200;
-//         this.position.y+=(mouseY-this.position.y)/200;
-//       }
-//       else if(isreleased){
-//         this.position.x+=this.rleasedX/10;
-//         this.position.y+=this.rleasedY/10;
-//       }
-//
-//       if(this.isControled){
-//         this.position.x+=(mouseX-this.position.x)/10;
-//         this.position.y+=(mouseY-this.position.y)/10;
-//       }
-//       translate(this.position.x, this.position.y);
-//       rotate(this.rotateAngle);
-//       fill(this.size.x * this.R / 10, this.size.x * this.G / 10, this.size.x * this.B / 10, round(sin(this.timepast) * 128));
-//       rect(sin(this.timepast) * this.baseSize.x+5, cos(this.timepast) * this.baseSize.y+5, this.size.x * 1.25, this.size.y * 1.25);
-//       rotate(this.rotateAngle);
-//       fill(this.size.x * this.R / 10, this.size.x * this.G / 10, this.size.x * this.B / 10, 255);
-//       rect(sin(this.timepast) * this.baseSize.x, cos(this.timepast) * this.baseSize.y, this.size.x, this.size.y);
-//       resetMatrix();
-//
-//     }else if (this.shapeType === "BALL") {
-//       if(this.isControled){
-//         this.ballx+=(mouseX-this.ballx)/10;
-//         this.bally+=(mouseY-this.bally)/10;
-//       }
-//       translate(this.ballx, this.bally);
-//       fill(this.size.x * this.R / 10, this.size.x * this.G / 10, this.size.x * this.B / 10);
-//       ellipse(0, 0, this.size.x * 1.25, this.size.y * 1.25);
-//       if(this.isPlaying){
-//       this.ballx+=this.vx;
-//       this.bally+=this.vy;
-//
-// 	    if(this.ballx>width||this.ballx<0)
-// 		    this.vx*=-1;
-//
-//       if(this.bally>height||this.bally<0)
-// 		    this.vy*=-1;
-//       }
-//       resetMatrix();
-//     }else if (this.shapeType === "SNOW") {
-//       translate(this.snowx, this.snowy);
-//       rotate(this.snowAngle);
-//       if(this.snowTurn<0.5)
-//         this.snowTurn=-1*this.snowTurn;
-//
-//       stroke( this.R*this.snowColor, this.G*this.snowColor,  this.B*this.snowColor );
-//       snow(0, 0,this.snowSize);
-//
-//       if(this.isPlaying){
-//       this.snowy+=this.snowg*this.snowSize/5;
-//
-//       if(!isWindR&&!isWindL)
-//         this.snowx+=sin(this.timepast) * this.snowSize/15*this.snowTurn;
-//       else if(isWindR||isWindL)
-//       {
-//         if(this.snowSize<5)
-//           this.snowx+=wind/5;
-//         else
-//           this.snowx+=wind/this.snowSize*2;
-//       }
-//
-//       if(this.snowy>height)
-//         this.snowy=0;
-//       if(this.snowx>width)
-//         this.snowx=0;
-//       if(this.snowx<0)
-//         this.snowx=width;
-//
-//         this.snowAngle+=0.005*PI;
-//         if(this.snowAngle>2*PI)
-//           this.snowAngle=0.005*PI;
-//     }
-//       resetMatrix();
-//
-//     }else if (this.shapeType === "STAR") {
-//       if(this.isControled){
-//         this.starx+=(mouseX-this.starx)/10;
-//         this.stary+=(mouseY-this.stary)/10;
-//       }
-//
-//       translate(this.starx, this.stary);
-//       rotate(this.starAngle);
-//
-//       star(0,0,this.starsize*1.2,this.R*2,this.G*2,this.B*2);
-//       if((0.9+this.startime)>1.2)
-//         star(0,0,this.starsize*1.2,this.R*0.5,this.G*0.5,this.B*0.5);
-//       else
-//       star(0,0,this.starsize*(0.9+this.startime),this.R*0.5,this.G*0.5,this.B*0.5);
-//       star(0,0,this.starsize*(0.6+this.startime),this.R*2,this.G*2,this.B*2);
-//       star(0,0,this.starsize*(0.3+this.startime),this.R*0.5,this.G*0.5,this.B*0.5);
-//       star(0,0,this.starsize*(0.0+this.startime),this.R*2,this.G*2,this.B*2);
-//       if(this.starsize*(-0.3+this.startime>0))
-//         star(0,0,this.starsize*(-0.3+this.startime),this.R*0.5,this.G*0.5,this.B*0.5);
-//
-//       if(this.isPlaying){
-//         this.startime+=0.005;
-//         if(this.startime>0.6)
-//         this.startime=0
-//       }
-//
-//       resetMatrix();
-//     }else if (this.shapeType === "SAKURA") {
-//       if(this.sakuraType<0)
-//         this.sakuraType=-1;
-//       else
-//         this.sakuraType=1;
-//       translate(this.sakuraX, this.sakuraY);
-//       rotate(this.sakuraAngle);
-//       if(this.sakuraTurn<0.5)
-//         this.sakuraTurn=-1*this.sakuraTurn;
-//
-//       sakura(0, 0,this.sakuraSize*this.sakuraType,this.R*this.sakuraColor, this.G*this.sakuraColor,  this.B*this.sakuraColor);
-//
-//       if(this.isPlaying){
-//       this.sakuraY+=this.sakuraG*0.5*this.sakuraSize/5;
-//
-//       if(!isWindR&&!isWindL)
-//         this.sakuraX+=sin(this.timepast) * this.sakuraSize/15*this.sakuraTurn;
-//       else if(isWindR||isWindL)
-//       {
-//         if(this.sakuraSize<5)
-//           this.sakuraX+=wind/5;
-//         else
-//           this.sakuraX+=wind/this.sakuraSize*2;
-//       }
-//
-//       if(this.sakuraY>height)
-//         this.sakuraY=0;
-//       if(this.sakuraX>width)
-//         this.sakuraX=0;
-//       if(this.sakuraX<0)
-//         this.sakuraX=width;
-//
-//         this.sakuraAngle+=0.005*PI;
-//         if(this.sakuraAngle>2*PI)
-//           this.sakuraAngle=0.005*PI;
-//     }
-//       resetMatrix();
-//
-//     }
-// }
-//   //添加update（）函数，用于更新所画图形
-//   Bursh.prototype.update = function() {
-//     this.size = createVector(this.baseSize.x + sin(this.timepast) * this.baseSize.x * this.sizeScale,
-//       this.baseSize.y + sin(this.timepast) * this.baseSize.y * this.sizeScale);
-//     if (this.isPlaying) {
-//       this.timepast += 1 / FPS;
-//     }
-//   }
-
-
-//设置画布，绘出按钮
+let picSun = undefined;
+let picMoon = undefined;
+let picAfterNoon = undefined;
+let picTimer = undefined;
+let picEraser = undefined;
+let picSave = undefined;
+let picWind = undefined;
+let picCircle = undefined;
+let picTri = undefined;
+let picLines = undefined;
+let picCube = undefined;
+let picStar = undefined;
+//set the canvas and display all the buttons
+  function preload(){
+  picSave = loadImage(`assets/images/sun1.png`)
+  }
   function setup() {
     frameRate(FPS);
-    createCanvas(330, 300);
-    noCursor();//隐藏鼠标
-    strokeCap(PROJECT); //设置线条类型为扩展性
+    createCanvas(1200, 700);
+    noCursor();//hide the mouse
+    strokeCap(PROJECT); //make the lines project way
 
-		let options = createDiv()
-		let optionsValue = createDiv().parent(options)
-		penColor = createColorPicker(`#ffffff`)
-		bgColor = createColorPicker(`#ffffff`)
-    //加载颜色按钮
-    boxes.push(new ColorButton(5, 5 + 30 * 0, 30, 30, 200, 50, 50));
-    boxes.push(new ColorButton(5, 5 + 30 * 1, 30, 30, 200, 100, 50));
-    boxes.push(new ColorButton(5, 5 + 30 * 2, 30, 30, 200, 150, 50));
+    // abondond part of colour picker
+		// let options = createDiv()
+		// let optionsValue = createDiv().parent(options)
+		// penColor = createColorPicker(`#ffffff`)
+		// bgColor = createColorPicker(`#ffffff`)
 
-    boxes.push(new ColorButton(5, 5 + 30 * 3, 30, 30, 150, 200, 50));
-    boxes.push(new ColorButton(5, 5 + 30 * 4, 30, 30, 100, 200, 50));
-    boxes.push(new ColorButton(5, 5 + 30 * 5, 30, 30, 50, 200, 50));
+    //push all the colour buttons
+    boxes.push(new ColorButton(5, 5 + 30 * 0, 100, 30, 200, 50, 50));
+    boxes.push(new ColorButton(5, 5 + 30 * 1, 100, 30, 200, 100, 50));
+    boxes.push(new ColorButton(5, 5 + 30 * 2, 100, 30, 200, 150, 50));
 
-    boxes.push(new ColorButton(5, 5 + 30 * 6, 30, 30, 50, 150, 200));
-    boxes.push(new ColorButton(5, 5 + 30 * 7, 30, 30, 50, 100, 200));
-    boxes.push(new ColorButton(5, 5 + 30 * 8, 30, 30, 50, 50, 200));
+    boxes.push(new ColorButton(5, 5 + 30 * 3, 100, 30, 150, 200, 50));
+    boxes.push(new ColorButton(5, 5 + 30 * 4, 100, 30, 100, 200, 50));
+    boxes.push(new ColorButton(5, 5 + 30 * 5, 100, 30, 50, 200, 50));
 
-    boxes.push(new ColorButton(5, 5 + 30 * 9, 30, 30, 100, 50, 200));
-    boxes.push(new ColorButton(5, 5 + 30 * 10, 30, 30, 150, 50, 200));
-    boxes.push(new ColorButton(5, 5 + 30 * 11, 30, 30, 200, 50, 200));
+    boxes.push(new ColorButton(5, 5 + 30 * 6, 100, 30, 50, 150, 200));
+    boxes.push(new ColorButton(5, 5 + 30 * 7, 100, 30, 50, 100, 200));
+    boxes.push(new ColorButton(5, 5 + 30 * 8, 100, 30, 50, 50, 200));
 
-    //加载功能按钮
-    boxes.push(new FuncButton(5, 5 + 30 * 12, 30, 30, "sun"));
-    boxes.push(new FuncButton(5, 5 + 30 * 13, 30, 30, "circle"));
-    boxes.push(new FuncButton(5, 5 + 30 * 14, 30, 30, "star"));
+    boxes.push(new ColorButton(5, 5 + 30 * 9, 100, 30, 100, 50, 200));
+    boxes.push(new ColorButton(5, 5 + 30 * 10, 100, 30, 150, 50, 200));
+    boxes.push(new ColorButton(5, 5 + 30 * 11, 100, 30, 200, 50, 200));
+
+    //push all the function buttons
+    boxes.push(new FuncButton(5, 5 + 30 * 12, 100, 30, "sun"));
+    boxes.push(new FuncButton(5, 5 + 30 * 13, 100, 30, "circle"));
+    boxes.push(new FuncButton(5, 5 + 30 * 14, 100, 30, "star"));
     if(isPlaying){
-      boxes.push(new FuncButton(5, 5 + 30 * 15, 30, 30, "pause"));
+      boxes.push(new FuncButton(5, 5 + 30 * 15, 100, 30, "pause"));
     }else{
-      boxes.push(new FuncButton(5, 5 + 30 * 15, 30, 30, "play"));
+      boxes.push(new FuncButton(5, 5 + 30 * 15, 100, 30, "play"));
     }
     boxes.push(new FuncButton(5, 5 + 30 * 16, 100, 30, "timer"));
-    boxes.push(new FuncButton(5, 5 + 30 * 17, 30, 30, "eraser"));
-    boxes.push(new FuncButton(5, 5 + 30 * 18, 30, 30, "clear"));
-    boxes.push(new FuncButton(5, 5 + 30 * 19, 30, 30, "save"));
-    boxes.push(new FuncButton(5, 5 + 30 * 20, 30, 30, "wind"));
-    boxes.push(new FuncButton(5, 5 + 30 * 21, 30, 30, "blackhole"));
-    boxes.push(new FuncButton(5, 5 + 30 * 22, 30, 30, "control"));
+    boxes.push(new FuncButton(5, 5 + 30 * 17, 100, 30, "eraser"));
+    boxes.push(new FuncButton(5, 5 + 30 * 18, 100, 30, "clear"));
+    boxes.push(new FuncButton(5, 5 + 30 * 19, 100, 30, "save"));
+    boxes.push(new FuncButton(5, 5 + 30 * 20, 100, 30, "wind"));
+    boxes.push(new FuncButton(5, 5 + 30 * 21, 100, 30, "blackhole"));
+    boxes.push(new FuncButton(5, 5 + 30 * 22, 100, 30, "control"));
 
   }
 
 
-  //画图函数
+  //drawing
   function draw() {
-      //设置背景色
+      //set the background colour
     background(bR, bG, bB);
-    //计时
+    //timer
     timepast += 1 / FPS;
 
-    //绘图
+    //drawing
     if (mouseIsPressed && (mouseX > 110 || isMenuHide)) {
       if (brushType === "CIRCLE" || brushType === "LINES" || brushType === "TRIANGLE"||
        brushType==="CUBE"||brushType==="BALL"||brushType==="SNOW"||brushType==="SAKURA") {
         let position = createVector(mouseX, mouseY);
-        //将新画的图像存入数组中，设置位置，大小（滑动越快越大），颜色
+        //put the newest image in to arrary and set pos size and colour()
         objs.push(new Bursh(position, sqrt(sq(mouseX - pmouseX) + sq(mouseY - pmouseY)), R, G, B));
       }else if (brushType === "HANABI") {
         objs.push(new hanabi(mouseX,mouseY,R, G, B));
       }
-      //Eraser
+      //Eraser  (use delete image to make the eraser)
       else if (brushType === "ERASER" && objs.length > 0) {
         for (let i = 0; i < objs.length; i++) {
-            //删除某个图像
+            //delete specified brush
           if (sqrt(sq(objs[i].position.x - mouseX) + sq(objs[i].position.y - mouseY)) <= eraserRange) {
             objs.splice(i, 1);
             break;
 
           }
         }
-      } else if (brushType === "TIMER" && objs.length > 0) {
+      } else if (brushType === "TIMER" && objs.length > 0) {   // if the timer is on pause all the animation and dynamic effect
         for (let i = 0; i < objs.length; i++) {
           if (sqrt(sq(objs[i].position.x - mouseX) + sq(objs[i].position.y - mouseY)) <= timerRange) {
             objs[i].timepast += 2 / FPS;
             objs[i].isPlaying = false;
           }
         }
-      }else if (brushType === "CONTROL" && objs.length > 0) {
+      }else if (brushType === "CONTROL" && objs.length > 0) { //specified part let usar moving the drawing
         for (let i = 0; i < objs.length; i++) {
           if(objs[i].shapeType==="STAR"){
             if (sqrt(sq(objs[i].starx - mouseX) + sq(objs[i].stary - mouseY)) <=controlRange) {
@@ -420,21 +147,21 @@ let isreleased=false;
         objs[i].isControled=false;
       }
     }
-    //将数组中存储的数据全部画出来
+    //use array to draw all the data
     for (let i = 0; i < objs.length; i++) {
       objs[i].drawing();
       objs[i].update();
     }
 
 
-    //鼠标图像
+    //mouse image
     stroke(0);
     strokeWeight(2);
     if (!isMenuHide) {
       for (let i = 0; i < boxes.length; i++) {
-        //绘制按钮
+        //display  all the buttons
         boxes[i].displayButton();
-        //判断是否在按钮上，是则呈现手型
+        //check it the mouse is on the button , if yes become a hand
         if (boxes[i].isMouseInButton()) {
           cursor(HAND);
         }

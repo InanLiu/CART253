@@ -9,7 +9,7 @@ Liu Shanqi
 //# spy simulation
 
 
-// matagame 
+// matagame
 //
 // use dialogs to let player image a coldwar world and depress spy
 

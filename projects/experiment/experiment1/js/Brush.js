@@ -1,30 +1,30 @@
 function Bursh(position, givenSize, givenR, givenG, givenB) {
-    //颜色
+    //color
   this.R = givenR;
   this.G = givenG;
   this.B = givenB;
-  //位置
+  //pos
   this.position = createVector(position.x, position.y);
   this.position.x += (random(20) - 10);
   this.position.y += (random(20) - 10);
-  //大小
+  //size
   this.size = createVector(0, 0);
   this.sizeScale = 0.5;
   var randomSize = givenSize / 2 + random(10);
   this.baseSize = createVector(randomSize, randomSize);
 
-  this.timepast = 0;
-  this.isPlaying = isPlaying;
-  this.rotateAngle = random(2 * PI);
+  this.timepast = 0;  // timer
+  this.isPlaying = isPlaying; //check the pause
+  this.rotateAngle = random(2 * PI);  //moveing angele
   this.shapeType = brushType;
   this.pmouseX = pmouseX;
   this.pmouseY = pmouseY;
   this.mouseX = mouseX;
   this.mouseY = mouseY;
 
-  this.ballx=mouseX;
+  this.ballx=mouseX;  // p of balls
   this.bally=mouseY;
-  this.vx=(random(4) - 2);
+  this.vx=(random(4) - 2); // random moving speed
   this.vy=(random(6) - 3);
 
   this.snowx=mouseX;
@@ -56,20 +56,20 @@ function Bursh(position, givenSize, givenR, givenG, givenB) {
   this.sakuraType=random(1)-0.5;
 
 }
-//添加drawing函数
+//add drawing function
 Bursh.prototype.drawing = function() {
   noStroke();
   if (this.shapeType === "CIRCLE") {
-    if(isBlackHOle){
+    if(isBlackHOle){  //circle movement under the blackhole mode
       this.position.x+=(mouseX-this.position.x)/200;
       this.position.y+=(mouseY-this.position.y)/200;
     }
-    else if(isreleased){
+    else if(isreleased){ //circle movement under the release mode
       this.position.x+=this.rleasedX/10;
       this.position.y+=this.rleasedY/10;
     }
 
-    if(this.isControled){
+    if(this.isControled){  //circle movement under the isControled mode
       this.position.x+=(mouseX-this.position.x)/10;
       this.position.y+=(mouseY-this.position.y)/10;
     }
