@@ -24,6 +24,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   background(110);
   noStroke();
+  createColorPicker()
 
   // need find the way make it out of the setup or organization
   //arrary of the toolboxs
